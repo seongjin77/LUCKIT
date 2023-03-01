@@ -11,7 +11,7 @@ export const Search = () => {
   const [searchUserData, setSearchUserData] = useState([]);
   const userToken = localStorage.getItem("Access Token");
 
-  useEffect(() => {
+  const searchKeyword = () => {
 
     if(keyword) {
       axios({
@@ -29,7 +29,19 @@ export const Search = () => {
           console.log(error);
         });
     }
-  }, [keyword])
+  }
+
+  useEffect(() => {
+
+  const debounce = setTimeout(()=> {
+      searchKeyword()
+    }, 200 )
+
+  return () => {
+    clearTimeout(debounce)
+  }
+  },[keyword])
+
 
   const onChange = ((event) => {
     setKeyword(event.target.value)
