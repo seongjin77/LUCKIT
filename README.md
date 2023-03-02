@@ -6,7 +6,7 @@
 
 📄 진행 기간 : 2022. 12. 09 ~ 2023. 01. 04
 
-📄 URL : https://cloverluckit.netlify.app/
+📄 URL : https://luckitclover.netlify.app/
 
 📄 서비스 이용을 위한 테스트 계정
 
@@ -403,13 +403,14 @@ scrollTop 값 자체를 state로 지정하지 않고, scrollTop 값이 300 이�
 <br><br>
 
 ## 버전 계획
-### 럭킷 v1.1 (2023년 1월 18일 예정)
+### 럭킷 v1.1
 
 - 사용자 경험 개선
-  - SNS 피드 이미지 여러장일 때 캐러셀로 처리
+  - SNS 피드 이미지 여러장일 때 캐러셀로 처리예정
 
 - 재사용성 고려
   - 재사용되는 컴포넌트, API를 한 곳에 분류해 추후 변경될 경우 수정에 용이하도록 할 예정
+  - 커스텀 훅을 사용하여 코드 재활용성 향상예정
 
 <br><br>
 [![TOP](https://user-images.githubusercontent.com/102042383/210679860-c559fe5c-0bf9-42f0-af91-6b50ac25f02e.png)](#-취향을-잇다-luckit)
