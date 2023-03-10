@@ -1,14 +1,17 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { getCookie } from './cookie';
 
 export function PrivateRoute({ children }) {
-  const token =!!localStorage.getItem("Access Token");
+  // const token =!!getCookie("Access Token");
+  const token = !!getCookie('Access Token');
 
-  return token ? children : <Navigate to="/login" />;
+  return token ? children : <Navigate to='/login' />;
 }
 
-export function PublicRoute({children}){
-  const token =!!localStorage.getItem("Access Token");
+export function PublicRoute({ children }) {
+  // const token =!!getCookie("Access Token");
+  const token = !!getCookie('Access Token');
 
-  return token ?  <Navigate to="/home" /> : children ;
+  return token ? <Navigate to='/home' /> : children;
 }

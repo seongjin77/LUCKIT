@@ -15,6 +15,7 @@ import {
 } from './profileboxstyle';
 import DefaultUserImg from '../../assets/icon/basic-profile-img-.png';
 import { AxiosUserData, onChangeFollow } from '../../reducers/getUserInfoSlice';
+import { getCookie } from '../../cookie';
 
 export const ProfileBox = () => {
   const { isfollow, followerCount, accountname, followingCount, image, username, intro } = useSelector(
@@ -23,8 +24,8 @@ export const ProfileBox = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const BaseURL = `https://mandarin.api.weniv.co.kr/profile/${id}`;
-  const myAccountName = localStorage.getItem('Account Name');
-  const userToken = localStorage.getItem('Access Token');
+  const myAccountName = getCookie('Account Name');
+  const userToken = getCookie('Access Token');
 
   useEffect(() => {
     dispatch(AxiosUserData(BaseURL));

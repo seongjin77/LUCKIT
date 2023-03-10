@@ -14,10 +14,11 @@ import { PostUploadBtn } from '../../components/button/iconBtn';
 import { AxiosFollow } from '../../reducers/getFollowSlice';
 import { AxiosUserData } from '../../reducers/getUserInfoSlice';
 import { Loading } from '../../components/loading/loading';
+import { getCookie } from '../../cookie';
 
 export const SnsPage = () => {
-  const userToken = localStorage.getItem('Access Token');
-  const myAccountName = localStorage.getItem('Account Name');
+  const userToken = getCookie('Access Token');
+  const myAccountName = getCookie('Account Name');
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const URL = `https://mandarin.api.weniv.co.kr`;
@@ -86,10 +87,10 @@ export const SnsPage = () => {
 
   return (
     <>
-        <Helmet>
-          <title>LUCKIT - SNS 피드</title>
-          <meta name='description' content='럭킷 Sns피드입니다. 럭킷메이트들의 새로운 소식을 확인해보세요! ' />
-        </Helmet>
+      <Helmet>
+        <title>LUCKIT - SNS 피드</title>
+        <meta name='description' content='럭킷 Sns피드입니다. 럭킷메이트들의 새로운 소식을 확인해보세요! ' />
+      </Helmet>
       {isLoading ? (
         <Loading />
       ) : (
@@ -103,7 +104,7 @@ export const SnsPage = () => {
                 </li>
               </NavLink>
               {followList.map((story) => {
-                const storyImg = story.image.includes('Ellipse') ? DefaultUserImg : story.image
+                const storyImg = story.image.includes('Ellipse') ? DefaultUserImg : story.image;
 
                 return (
                   <NavLink key={story._id} to={`/profile/${story.accountname}`}>

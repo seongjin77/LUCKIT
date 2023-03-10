@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { getCookie } from '../cookie';
 
 const initialState = {
   userData: {},
@@ -7,7 +8,7 @@ const initialState = {
 };
 
 export const AxiosUserData = createAsyncThunk('userdata/axiosUserData', async (URL) => {
-  const token = localStorage.getItem('Access Token');
+  const token = getCookie('Access Token');
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -20,19 +21,15 @@ export const AxiosUserData = createAsyncThunk('userdata/axiosUserData', async (U
 });
 
 // 이미지 업로드 함수
-export const AxiosImgUpload = createAsyncThunk(
-  'userImg/axiosUserData', async(imgFile) => {
-   
-    const formData = new FormData();
+export const AxiosImgUpload = createAsyncThunk('userImg/axiosUserData', async (imgFile) => {
+  const formData = new FormData();
 
-    formData.append('image', imgFile);
+  formData.append('image', imgFile);
 
-    const res = await axios.post('https://mandarin.api.weniv.co.kr/image/uploadfile', formData);
+  const res = await axios.post('https://mandarin.api.weniv.co.kr/image/uploadfile', formData);
 
-    return `https://mandarin.api.weniv.co.kr/${res.data.filename}`;
-  }
-)
-
+  return `https://mandarin.api.weniv.co.kr/${res.data.filename}`;
+});
 
 export const userInfoSlice = createSlice({
   name: 'userInfo',
@@ -69,7 +66,7 @@ export const userInfoSlice = createSlice({
       })
       .addCase(AxiosImgUpload.rejected, (state) => {
         state.status = 'fail';
-      })
+      });
   },
 });
 

@@ -5,6 +5,7 @@ import { ProductUploadHeader } from '../../header/header';
 import { MarketImage } from './marketImage';
 import { MarketInput } from './marketInput';
 import { InputWrap, MarketForm } from './marketinputstyle';
+import { getCookie } from '../../../cookie';
 
 export const MarketUpload = () => {
   // 데이터 전송에 필요한 유저 토큰
@@ -18,7 +19,7 @@ export const MarketUpload = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setUserToken(localStorage.getItem('Access Token'));
+    setUserToken(getCookie('Access Token'));
   }, []);
 
   useEffect(() => {

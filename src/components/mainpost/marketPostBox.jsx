@@ -5,10 +5,11 @@ import IconSnsClova from '../../assets/icon/sns용-클로바-disabled.png';
 import IconSnsClovaFill from '../../assets/icon/sns용-클로바.png';
 import { MarketPostMoreBtn } from '../button/iconBtn';
 import DefaultUserImg from '../../assets/icon/basic-profile.png';
+import { getCookie } from '../../cookie';
 
 export default function MarketPostBox({ data, accountname }) {
   const [confirmedValue, setConfirmedValue] = useState(JSON.parse(localStorage.getItem('stored')));
-  const myAccountName = localStorage.getItem('Account Name');
+  const myAccountName = getCookie('Account Name');
 
   const onClickApplyBtn = (e) => {
     const targetId = e.currentTarget.id;

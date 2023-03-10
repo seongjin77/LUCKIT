@@ -6,9 +6,10 @@ import { AxiosProductList } from '../../reducers/getProductListSlice';
 import IconClova from '../../assets/icon/sns용-클로바-disabled.png';
 import { ProfilePostUploadBtn } from '../button/iconBtn';
 import DefaultUserImg from '../../assets/splash.png';
+import { getCookie } from '../../cookie';
 
 export const MarketPreviewPost = () => {
-  const myAccountName = localStorage.getItem('Account Name');
+  const myAccountName = getCookie('Account Name');
   const { id } = useParams();
   const product = useSelector((state) => state.productListSlice.productList);
   const { username } = useSelector((state) => state.userInfoSlice.userData);
@@ -31,10 +32,7 @@ export const MarketPreviewPost = () => {
           <strong>{username}</strong>님이 찾는 럭킷 메이트✨
         </h3>
 
-        {id === myAccountName ?
-        <ProfilePostUploadBtn pathName='/upload' />
-        : null }
-
+        {id === myAccountName ? <ProfilePostUploadBtn pathName='/upload' /> : null}
       </HeadingWrap>
       <MarketPostWrap>
         {product.length === 0 && (

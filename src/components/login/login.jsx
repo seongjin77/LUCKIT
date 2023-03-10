@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Envelope, Gogo, GoSignupLink, LoginForm, LoginInput, LoginWrap } from './loginstyle';
+import { setCookie } from '../../cookie';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -49,8 +50,18 @@ export const Login = () => {
               .then((data) => {
                 if (data.data.isValid) {
                   setMessage('');
-                  localStorage.setItem('Access Token', res.data.user.token);
-                  localStorage.setItem('Account Name', res.data.user.accountname);
+                  // localStorage.setItem('Access Token', res.data.user.token);
+                  // localStorage.setItem('Account Name', res.data.user.accountname);
+                  setCookie('Access Token', res.data.user.token, {
+                    path: '/',
+                    secure: true,
+                    sameSite: 'strict',
+                  });
+                  setCookie('Account Name', res.data.user.accountname, {
+                    path: '/',
+                    secure: true,
+                    sameSite: 'strict',
+                  });
                   navigate('/');
                 } else {
                   alert('유효하지 않은 접근입니다');

@@ -27,10 +27,11 @@ import { Error } from './404-error/errorPage.jsx';
 import { PrivateRoute, PublicRoute } from '../Route';
 import Start from './start/start.jsx';
 import { ChatRoomSec } from './chat/chatRoomSec.jsx';
+import { getCookie } from '../cookie/index.js';
 
 const Pages = () => {
   const [loading, setLoading] = useState(false);
-  const token = !!localStorage.getItem('Access Token');
+  const token = !!getCookie('Access Token');
 
   useEffect(() => {
     if (window.location.pathname === '/' && !token) {

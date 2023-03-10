@@ -5,6 +5,7 @@ import moreBtn from '../../assets/icon/s-icon-more-vertical.png';
 import imgBtn from '../../assets/icon/upload-file.png';
 import { CommentModal, MarketPreviewModal, SnsPostModal } from '../modal/modal';
 import IconPostUpload from '../../assets/icon/market-plus.png';
+import { getCookie } from '../../cookie';
 
 export function ImgUploadBtn({ posi, click }) {
   return <IconBtn onClick={click} icon={imgBtn} posi={posi}></IconBtn>;
@@ -12,7 +13,8 @@ export function ImgUploadBtn({ posi, click }) {
 /* Sns게시글 더보기 버튼 */
 export function MoreBtn({ postId, accountName, postContent, postImg }) {
   const [isOpen, setIsOpen] = useState(false);
-  const myAccountName = localStorage.getItem('Account Name');
+  // const myAccountName = getCookie('Account Name');
+  const myAccountName = getCookie('Account Name');
 
   const onClick = () => {
     setIsOpen(true);
@@ -41,7 +43,8 @@ export function MoreBtn({ postId, accountName, postContent, postImg }) {
 /* 댓글 더보기 버튼 */
 export function CommentMoreBtn({ postId, commentId, accountName }) {
   const [isOpen, setIsOpen] = useState(false);
-  const myAccountName = localStorage.getItem('Account Name');
+  const myAccountName = getCookie('Account Name');
+  // const myAccountName = getCookie('Account Name');
 
   const onClick = () => {
     setIsOpen(true);

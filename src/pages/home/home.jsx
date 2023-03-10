@@ -6,10 +6,11 @@ import { AxiosFollow } from '../../reducers/getFollowSlice';
 import DefaultHome from './defaultHome';
 import { HomeWrap } from './homestyle';
 import { MarketFeedHome } from './MarketFeedHome';
+import { getCookie } from '../../cookie';
 
 export const Home = () => {
   const [scrollTopData, setScrollTopData] = useState(false);
-  const accountName = localStorage.getItem('Account Name');
+  const accountName = getCookie('Account Name');
   const dispatch = useDispatch();
   const followingData = useSelector((state) => state.followInfoSlice.followData);
   const followimgURL = `https://mandarin.api.weniv.co.kr/profile/${accountName}/following?limit=1000`;

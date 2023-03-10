@@ -10,9 +10,10 @@ import profileIcon from '../../assets/icon/profile-disabled.png';
 import profileIconFill from '../../assets/icon/profile.png';
 import locator from '../../assets/icon/locator-disabled.png';
 import locatorFill from '../../assets/icon/locator.png';
+import { getCookie } from '../../cookie';
 
 export const NavBar = () => {
-  const myAccountName = localStorage.getItem('Account Name');
+  const myAccountName = getCookie('Account Name');
 
   return (
     <NavWrap>

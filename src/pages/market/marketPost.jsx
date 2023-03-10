@@ -10,7 +10,6 @@ import { AxiosProductList } from '../../reducers/getProductListSlice';
 
 export function MarketPost() {
   const { id } = useParams();
-
   const marketPostData = useSelector((state) => state.productListSlice.productList);
   const dispatch = useDispatch();
 

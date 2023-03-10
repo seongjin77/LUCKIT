@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { getCookie } from '../cookie';
 
 const initialState = {
   followData: [],
@@ -7,14 +8,14 @@ const initialState = {
 };
 
 export const AxiosFollow = createAsyncThunk('follow/axiosfollow', async (URL) => {
-  const token = localStorage.getItem('Access Token');
+  const token = getCookie('Access Token');
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-type': 'application/json',
     },
   };
-  const res = await axios(URL, config)
+  const res = await axios(URL, config);
 
   return res.data;
 });

@@ -5,6 +5,7 @@ import { PostUploadHeader } from '../../header/header';
 import { MarketImage } from '../marketUpload/marketImage';
 import { MarketInput } from '../marketUpload/marketInput';
 import { InputWrap, MarketForm } from '../marketUpload/marketinputstyle';
+import { getCookie } from '../../../cookie';
 // import Error from '../../../pages/404-error/errorPage';
 
 export const MarketUpdate = () => {
@@ -16,7 +17,7 @@ export const MarketUpdate = () => {
   const [itemImage, setItemImage] = useState('');
   // const [view, setView] = useState('pending');
 
-  const userToken = localStorage.getItem('Access Token');
+  const userToken = getCookie('Access Token');
 
   const navigate = useNavigate();
 

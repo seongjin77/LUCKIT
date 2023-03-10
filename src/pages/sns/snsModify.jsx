@@ -14,9 +14,10 @@ import {
   Img,
 } from './snsstyle';
 import { PostUploadHeader } from '../../components/header/header';
+import { getCookie } from '../../cookie';
 
 export const SnsModify = () => {
-  const token = localStorage.getItem('Access Token');
+  const token = getCookie('Access Token');
   const [content, setContent] = useState('');
   const fileInput = useRef(null);
   const [showImgs, setShowImg] = useState([]);
@@ -155,10 +156,10 @@ export const SnsModify = () => {
 
   return (
     <>
-        <Helmet>
-          <title>LUCKIT - SNS 게시글 수정</title>
-          <meta name='description' content='럭킷 게시글 수정 페이지입니다. 작성한 게시글을 수정해보세요!' />
-        </Helmet>
+      <Helmet>
+        <title>LUCKIT - SNS 게시글 수정</title>
+        <meta name='description' content='럭킷 게시글 수정 페이지입니다. 작성한 게시글을 수정해보세요!' />
+      </Helmet>
       <PostUploadHeader handlePostSns={handlePostSns} disabled={uploadBtn ? null : 'disabled'} />
 
       <SnsUploadSec>
