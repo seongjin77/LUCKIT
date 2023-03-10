@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { Follow } from '../../components/follow/follow';
 import { FollowPageWrap, FollowPageUl } from './followstyle';
 import { FollowerHeader } from '../../components/header/header';
+import { getCookie } from '../../cookie';
 
 export const YourFollow = () => {
   /* 상대방 프로필에서 팔로워 팔로잉 누를때 이동하는 페이지 */
@@ -17,7 +18,7 @@ export const YourFollow = () => {
   const accountname = location.state.accountname;
   const URL = `https://mandarin.api.weniv.co.kr/profile/${accountname}/follower?limit=1000`;
   const URL2 = `https://mandarin.api.weniv.co.kr/profile/${accountname}/following?limit=1000`;
-  const token = localStorage.getItem('Access Token');
+  const token = getCookie('Access Token');
   const target = useLocation()?.state.text;
   const [followerList, setFollowerList] = useState([]);
   const [followingList, setFollowingList] = useState([]);
@@ -48,13 +49,10 @@ export const YourFollow = () => {
 
   return (
     <>
-        <Helmet>
-          <title>LUCKIT - Follow </title>
-          <meta
-            name='description'
-            content='럭킷 팔로우 페이지입니다. 럭킷들이 팔로우한 럭킷 메이트들을 확인해보세요!'
-          />
-        </Helmet>
+      <Helmet>
+        <title>LUCKIT - Follow </title>
+        <meta name='description' content='럭킷 팔로우 페이지입니다. 럭킷들이 팔로우한 럭킷 메이트들을 확인해보세요!' />
+      </Helmet>
       <FollowerHeader target={target} />
       <FollowPageWrap>
         <FollowPageUl>

@@ -14,13 +14,14 @@ import { MoreBtn } from '../button/iconBtn';
 import DefaultUserImg from '../../assets/icon/basic-profile-img-.png';
 import CommentIcon from '../../assets/icon/icon-message-circle.svg';
 import HeartBtn from '../button/heartBtn/heartBtn';
+import { getCookie } from '../../cookie';
 
 const onErrorImg = (e) => {
   e.target.src = DefaultUserImg;
 };
 
 const MainSnsPost = ({ data }) => {
-  const userToken = localStorage.getItem('Access Token');
+  const userToken = getCookie('Access Token');
 
   return (
     <MainSnsPostWrap>

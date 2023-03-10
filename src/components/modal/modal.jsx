@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { getCookie, removeCookie } from '../../cookie';
 import {
   ModalWrap,
   ModalBtnWrap,
@@ -23,8 +24,10 @@ export const LogoutModal = ({ onClickClose }) => {
   };
 
   const onClickLogout = () => {
-    localStorage.removeItem('Account Name');
-    localStorage.removeItem('Access Token');
+    // localStorage.removeItem('Account Name');
+    // localStorage.removeItem('Access Token');
+    removeCookie('Account Name');
+    removeCookie('Access Token');
   };
 
   return (
@@ -54,8 +57,8 @@ export const LogoutModal = ({ onClickClose }) => {
 
 export const MarketPreviewModal = ({ onClickClose, productId }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const userToken = localStorage.getItem('Access Token');
-  const myAccountName = localStorage.getItem("Account Name");
+  const userToken = getCookie('Access Token');
+  const myAccountName = getCookie('Account Name');
   const { id } = useParams();
 
   const onClickDeleteModal = () => {
@@ -88,24 +91,25 @@ export const MarketPreviewModal = ({ onClickClose, productId }) => {
   return (
     <PostModalWrap onClick={() => onClickClose(false)}>
       <div className='postModalList' onClick={(e) => e.stopPropagation()}>
-        {id === myAccountName ? 
-        <>
-          <PostModalBtnWrap>
-            <button onClick={onClickDeleteModal}>삭제</button>
-            <NavLinkStyle to={`/update/${productId}`}>수정</NavLinkStyle>
-          </PostModalBtnWrap>
-          {isOpenModal && (
-            <Div>
-              <ModalWrap>
-                <strong>매칭글을 삭제할까요?</strong>
-                <ModalBtnWrap>
-                  <button onClick={onClickCancel}>취소</button>
-                  <button onClick={handleMarketDelete}>삭제</button>
-                </ModalBtnWrap>
-              </ModalWrap>
-            </Div>
-          )}
-          </> : 
+        {id === myAccountName ? (
+          <>
+            <PostModalBtnWrap>
+              <button onClick={onClickDeleteModal}>삭제</button>
+              <NavLinkStyle to={`/update/${productId}`}>수정</NavLinkStyle>
+            </PostModalBtnWrap>
+            {isOpenModal && (
+              <Div>
+                <ModalWrap>
+                  <strong>매칭글을 삭제할까요?</strong>
+                  <ModalBtnWrap>
+                    <button onClick={onClickCancel}>취소</button>
+                    <button onClick={handleMarketDelete}>삭제</button>
+                  </ModalBtnWrap>
+                </ModalWrap>
+              </Div>
+            )}
+          </>
+        ) : (
           <>
             <PostModalBtnWrap>
               <button onClick={onClickDeleteModal}>신고하기</button>
@@ -121,17 +125,18 @@ export const MarketPreviewModal = ({ onClickClose, productId }) => {
                 </ModalWrap>
               </Div>
             )}
-          </>}
+          </>
+        )}
       </div>
     </PostModalWrap>
   );
 };
 
 /* Sns게시글 모달 */
-export const SnsPostModal = ({ onClickClose, accountName, myAccountName, postId, postContent, postImg}) => {
+export const SnsPostModal = ({ onClickClose, accountName, myAccountName, postId, postContent, postImg }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const token = localStorage.getItem('Access Token');
-  const navigate = useNavigate(); 
+  const token = getCookie('Access Token');
+  const navigate = useNavigate();
 
   const onClickDeleteModal = () => {
     setIsOpenModal(true);
@@ -142,7 +147,6 @@ export const SnsPostModal = ({ onClickClose, accountName, myAccountName, postId,
   };
 
   const deletePost = () => {
-
     axios({
       url: `https://mandarin.api.weniv.co.kr/post/${postId}`,
       method: 'DELETE',
@@ -169,12 +173,16 @@ export const SnsPostModal = ({ onClickClose, accountName, myAccountName, postId,
           <>
             <PostModalBtnWrap>
               <button onClick={onClickDeleteModal}>삭제</button>
-              <NavLinkStyle to={'/snsmodify'} state={{
-                    postId: postId,
-                    postContent: postContent,
-                    postImg:postImg
-                  }}
-              >수정</NavLinkStyle>
+              <NavLinkStyle
+                to={'/snsmodify'}
+                state={{
+                  postId: postId,
+                  postContent: postContent,
+                  postImg: postImg,
+                }}
+              >
+                수정
+              </NavLinkStyle>
             </PostModalBtnWrap>
             {isOpenModal && (
               <Div>
@@ -224,7 +232,7 @@ export const ChatRoomModal = ({ onClickClose }) => {
 };
 
 export const CommentModal = ({ onClickClose, myAccountName, accountName, postId, commentId }) => {
-  const userToken = localStorage.getItem('Access Token');
+  const userToken = getCookie('Access Token');
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const onClickDeleteModal = () => {
@@ -235,7 +243,6 @@ export const CommentModal = ({ onClickClose, myAccountName, accountName, postId,
     setIsOpenModal(false);
   };
   const onClickCommentDelete = () => {
-
     axios({
       url: `https://mandarin.api.weniv.co.kr/post/${postId}/comments/${commentId}`,
       method: 'DELETE',

@@ -6,11 +6,13 @@ import { HomeSection, HomeTitle, ListWrap, ListItem } from './homestyle';
 import MarketPostBox from '../../components/mainpost/marketPostBox';
 import { MarketPostMoreBtn, PostUploadBtn } from '../../components/button/iconBtn';
 import { Loading } from '../../components/loading/loading';
+import { getCookie } from '../../cookie';
 
 export const MarketFeedHome = ({ scrollTopData, followingData }) => {
-  const userToken = localStorage.getItem('Access Token');
+  const userToken = getCookie('Access Token');
   const [productData, setProductData] = useState([]);
   const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     function postSort(a, b) {
@@ -30,6 +32,7 @@ export const MarketFeedHome = ({ scrollTopData, followingData }) => {
   }, []);
 
   const ProductList = async () => {
+    
     const followProductList = await followingData.map((list) => {
       return axios({
         method: 'get',
