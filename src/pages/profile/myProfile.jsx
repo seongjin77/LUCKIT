@@ -29,7 +29,8 @@ export const Profile = () => {
   const { id } = useParams();
   const snsPostData = useSelector((state) => state.snsPostSlice.snspost);
   const dispatch = useDispatch();
-  const snsPostURL = `https://mandarin.api.weniv.co.kr/post/${id}/userpost/?limit=number`;
+  const snsPostURL = `https://mandarin.api.weniv.co.kr/post/${id}/userpost/?limit=10`;
+
 
   useEffect(() => {
     dispatch(AxiosSnsPost(snsPostURL));
@@ -72,6 +73,7 @@ export const Profile = () => {
           </SnsPostBtn>
           {snsPostData.length !== 0 ? (
             <>
+            {/* 무한 스크롤 구현 부분. mainSnsPost가 각각의 게시글 버튼에 따라서 렌더링 시키는 부분이 다름. */}
               <ul>
                 {imgList &&
                   snsPostData.map((post) => {

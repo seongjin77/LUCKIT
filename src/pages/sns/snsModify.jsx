@@ -28,11 +28,12 @@ export const SnsModify = () => {
   const postId = location.state.postId;
   const oripostContent = location.state.postContent;
   const oripostImg = location.state.postImg;
+  const accountName = location.state.accountName;
 
   const data = {
     post: {
       content: '',
-      image: showImgs?.length === 0 ? postImg : showImgs,
+      image: showImgs
     },
   };
 
@@ -50,13 +51,13 @@ export const SnsModify = () => {
   }
 
   function sliceImg(oripostImgs) {
-    const arr = oripostImgs?.split(',');
+    const arr = oripostImgs?.split(',').filter(v => v !== '');
 
     return arr;
   }
 
   useEffect(() => {
-    setShowImg(() => sliceImg(oripostImg));
+    setShowImg(sliceImg(oripostImg));
   }, []);
 
   /* 이미지 띄워주는 함수 */
@@ -122,10 +123,6 @@ export const SnsModify = () => {
     }
     const SnsImgs = await Promise.all(snsImgList);
 
-    if (snsImgList.length > 3) {
-      snsImgList.slice(0, 3);
-    }
-
     data.post.image = SnsImgs.join(',');
     data.post.content = content?.length === 0 ? oripostContent : content;
 
@@ -140,7 +137,7 @@ export const SnsModify = () => {
             'Content-type': 'application/json',
           },
         })
-        .then(navigate(-1));
+        .then(navigate(`/profile/${accountName}`));
     } catch (error) {
       console.log(error);
     }

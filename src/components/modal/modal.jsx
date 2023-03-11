@@ -179,6 +179,7 @@ export const SnsPostModal = ({ onClickClose, accountName, myAccountName, postId,
                   postId: postId,
                   postContent: postContent,
                   postImg: postImg,
+                  accountName: accountName
                 }}
               >
                 수정

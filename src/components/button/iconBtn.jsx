@@ -13,7 +13,6 @@ export function ImgUploadBtn({ posi, click }) {
 /* Sns게시글 더보기 버튼 */
 export function MoreBtn({ postId, accountName, postContent, postImg }) {
   const [isOpen, setIsOpen] = useState(false);
-  // const myAccountName = getCookie('Account Name');
   const myAccountName = getCookie('Account Name');
 
   const onClick = () => {
@@ -44,7 +43,6 @@ export function MoreBtn({ postId, accountName, postContent, postImg }) {
 export function CommentMoreBtn({ postId, commentId, accountName }) {
   const [isOpen, setIsOpen] = useState(false);
   const myAccountName = getCookie('Account Name');
-  // const myAccountName = getCookie('Account Name');
 
   const onClick = () => {
     setIsOpen(true);

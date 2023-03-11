@@ -117,7 +117,7 @@ export const SnsUpload = () => {
             'Content-type': 'application/json',
           },
         })
-        .then(navigate(-1));
+        .then(  navigate(-1)  );
     } catch (error) {
       console.log(error);
     }
