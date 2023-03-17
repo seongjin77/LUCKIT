@@ -55,7 +55,7 @@ export const ModalBtnWrap = styled.div`
 
 `
 
-export const ModalNavLink = styled(NavLink)`   
+export const ModalNavLink = styled.button`   
     text-align: center;
     width: 50%;
     background-color: white;

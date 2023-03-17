@@ -114,7 +114,6 @@ export const SnsPage = () => {
                   </NavLink>
                 );
               })}
-              {}
             </ul>
           </SnsPageArt>
           {followList.length === 0 ? (

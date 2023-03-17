@@ -13,6 +13,7 @@ import {
 } from './modalstyle';
 
 export const LogoutModal = ({ onClickClose }) => {
+  const navigate = useNavigate();
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const onClickLogoutModal = () => {
@@ -24,10 +25,9 @@ export const LogoutModal = ({ onClickClose }) => {
   };
 
   const onClickLogout = () => {
-    // localStorage.removeItem('Account Name');
-    // localStorage.removeItem('Access Token');
     removeCookie('Account Name');
     removeCookie('Access Token');
+    navigate('/login')
   };
 
   return (
@@ -43,7 +43,7 @@ export const LogoutModal = ({ onClickClose }) => {
               <strong>로그아웃 하시겠습니까?</strong>
               <ModalBtnWrap>
                 <button onClick={onClickCancel}>취소</button>
-                <ModalNavLink to='/login' onClick={onClickLogout}>
+                <ModalNavLink onClick={onClickLogout}>
                   로그아웃
                 </ModalNavLink>
               </ModalBtnWrap>

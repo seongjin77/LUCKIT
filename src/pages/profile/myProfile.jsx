@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable */
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
@@ -31,10 +32,32 @@ export const Profile = () => {
   const dispatch = useDispatch();
   const snsPostURL = `https://mandarin.api.weniv.co.kr/post/${id}/userpost/?limit=10`;
 
-
+  // 뷰포트가 보이지 않은데 콜백함수가 한 번 실행됨 왜그런거
   useEffect(() => {
     dispatch(AxiosSnsPost(snsPostURL));
+    console.log('dddddd');
   }, [id]);
+
+  // //////////////
+  const rootView  = useRef();
+  const target = useRef();
+  const options = {
+    //root: rootView.current,
+    threshold: 1,
+  };
+  const callback = () => {
+    console.log('관측되었습니다.');
+  };
+  
+  useEffect(()=> {
+    const observer = new IntersectionObserver(callback, options);
+    console.log('실행수');
+    if(target.current){
+      console.log('실행');
+      observer.observe(target?.current)
+    }
+  },[snsPostData]) // 바뀐 데이터를 가져오면
+  // //////////////
 
   const onClickListBtn = () => {
     setImgList(true);
@@ -60,7 +83,7 @@ export const Profile = () => {
       <ProfileWrap>
         <ProfileBox />
         <MarketPreviewPost />
-        <SnsPostBox>
+        <SnsPostBox style={{backgroundColor : 'yellow'}} ref={rootView} >
           <h2>sns 게시글 피드</h2>
           <SnsPostBtn>
             <ListAndAlbumBtn
@@ -73,12 +96,18 @@ export const Profile = () => {
           </SnsPostBtn>
           {snsPostData.length !== 0 ? (
             <>
-            {/* 무한 스크롤 구현 부분. mainSnsPost가 각각의 게시글 버튼에 따라서 렌더링 시키는 부분이 다름. */}
+              {/* 무한 스크롤 구현 부분. mainSnsPost가 각각의 게시글 버튼에 따라서 렌더링 시키는 부분이 다름. */}
               <ul>
                 {imgList &&
-                  snsPostData.map((post) => {
-                    return (
-                      <SnsPostWrap key={post.id}>
+                  snsPostData.map((post, index) => {
+                    // post의 마지막 돔에게만 target 설정.
+                    // snsPostData.length -1 === index ?  target : null
+                    return snsPostData.length - 1 === index ? (
+                      <SnsPostWrap style={{ backgroundColor: 'blue' }} ref={target} key={post.id}>
+                        <MainSnsPost data={post} />
+                      </SnsPostWrap>
+                    ) : (
+                      <SnsPostWrap style={{ backgroundColor: 'red' }} key={post.id}>
                         <MainSnsPost data={post} />
                       </SnsPostWrap>
                     );
