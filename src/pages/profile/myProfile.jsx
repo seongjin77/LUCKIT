@@ -34,19 +34,19 @@ export const Profile = () => {
   const limitNum = useRef(10);
   const isEnd = useSelector((state) => state.snsPostSlice.endpoint);
 
-  const snsPostURL = (개수) => {
-    const url = `https://mandarin.api.weniv.co.kr/post/${id}/userpost/?limit=${개수}`;
+  const snsPostURL = (num) => {
+    const url = `https://mandarin.api.weniv.co.kr/post/${id}/userpost/?limit=${num}`;
     return url;
   };
-
   useEffect(() => {
     dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
   }, [id]);
 
   const [ref, inView] = useInView();
 
+
   useEffect(() => {
-    if (snsPostData.length !== 0 && inView && !isEnd) {
+    if (inView && !isEnd) {
       limitNum.current += 10;
       dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
     }
