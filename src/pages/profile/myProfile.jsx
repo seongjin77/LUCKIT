@@ -32,51 +32,45 @@ export const Profile = () => {
   const snsPostData = useSelector((state) => state.snsPostSlice.snspost);
   const dispatch = useDispatch();
   const limitNum = useRef(10);
-  //const snsPostURL = `https://mandarin.api.weniv.co.kr/post/${id}/userpost/?limit=${limitNum.current}`;
   const isEnd = useSelector((state) => state.snsPostSlice.endpoint);
-
-  //console.log('확인', isEnd);
 
   const snsPostURL = (개수) => {
     const url = `https://mandarin.api.weniv.co.kr/post/${id}/userpost/?limit=${개수}`;
-
     return url;
   };
 
   useEffect(() => {
     dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
-    console.log('첫 리덕스 성크로 데이터 불러옴');
   }, [id]);
 
-  // const [ref, inView] = useInView();
+  const [ref, inView] = useInView();
 
-  // useEffect(() => {
-  //   console.log('인뷰 실행');
-  //   if (snsPostData.length !== 0 && inView && !isEnd) {
-  //     limitNum.current += 10;
-
-  //     console.log('snsPostURL', snsPostURL(limitNum.current));
-  //     dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
-  //   }
-  // }, [inView]);
-
-  const target = useRef();
-
-  const callback = (entries) => {
-    if(entries[0].isIntersecting && !isEnd){
-      console.log('관측되었습니다.');
-      limitNum.current += 10
+  useEffect(() => {
+    if (snsPostData.length !== 0 && inView && !isEnd) {
+      limitNum.current += 10;
       dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
     }
-  };
+  }, [inView]);
 
-  const observer = new IntersectionObserver(callback, { threshold: 1 });
+  /// 순수 observer api만 사용
+  // const target = useRef();
+
+  // const callback = (entries) => {
+  //   if(entries[0].isIntersecting && !isEnd){
+  //     console.log('관측되었습니다.');
+  //     limitNum.current += 10
+  //     dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
+  //   }
+  // };
+
+  // const observer = new IntersectionObserver(callback, { threshold: 1 });
   
-  useEffect(()=> {
-    if(target.current){
-      observer.observe(target.current)
-    }
-  },[snsPostData]) // 바뀐 데이터를 가져오면 target.current가 존재. 따라서 target 관측시작.
+  // useEffect(()=> {
+  //   if(target.current){
+  //     observer.observe(target.current)
+  //   }
+  // },[snsPostData]) // 바뀐 데이터를 가져오면 target.current가 존재. 따라서 target 관측시작.
+///
 
 
   const onClickListBtn = () => {
@@ -103,7 +97,7 @@ export const Profile = () => {
       <ProfileWrap>
         <ProfileBox />
         <MarketPreviewPost />
-        <SnsPostBox style={{ backgroundColor: 'yellow' }}>
+        <SnsPostBox>
           <h2>sns 게시글 피드</h2>
           <SnsPostBtn>
             <ListAndAlbumBtn
@@ -122,11 +116,11 @@ export const Profile = () => {
                   snsPostData.map((post, index) => {
                     // post의 마지막 요소만 target 설정.
                     return snsPostData.length - 1 === index ? (
-                      <SnsPostWrap style={{ backgroundColor: 'blue' }} ref={target} key={post.id}>
+                      <SnsPostWrap ref={ref} key={post.id}>
                         <MainSnsPost data={post} />
                       </SnsPostWrap>
                     ) : (
-                      <SnsPostWrap style={{ backgroundColor: 'red' }} key={post.id}>
+                      <SnsPostWrap key={post.id}>
                         <MainSnsPost data={post} />
                       </SnsPostWrap>
                     );

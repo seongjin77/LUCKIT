@@ -25,8 +25,6 @@ export const EditProfile = () => {
   const dispatch = useDispatch();
   const userInfoData = useSelector((state) => state.userInfoSlice.userData);
 
-  console.log('확인해야할 정보',userInfoData);
-
   useEffect(() => {
     dispatch(AxiosUserData(URL));
   }, []);
