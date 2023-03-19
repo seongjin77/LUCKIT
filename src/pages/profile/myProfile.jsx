@@ -22,6 +22,7 @@ import { ProfilePostUploadBtn } from '../../components/button/iconBtn';
 import { AxiosSnsPost } from '../../reducers/getSnsPostSlice';
 import { ListAndAlbumBtn } from '../../components/button/button';
 import { getCookie } from '../../cookie';
+import { useInView } from 'react-intersection-observer';
 
 export const Profile = () => {
   const [imgList, setImgList] = useState(true);
@@ -30,34 +31,53 @@ export const Profile = () => {
   const { id } = useParams();
   const snsPostData = useSelector((state) => state.snsPostSlice.snspost);
   const dispatch = useDispatch();
-  const snsPostURL = `https://mandarin.api.weniv.co.kr/post/${id}/userpost/?limit=10`;
+  const limitNum = useRef(10);
+  //const snsPostURL = `https://mandarin.api.weniv.co.kr/post/${id}/userpost/?limit=${limitNum.current}`;
+  const isEnd = useSelector((state) => state.snsPostSlice.endpoint);
 
-  // 뷰포트가 보이지 않은데 콜백함수가 한 번 실행됨 왜그런거
+  //console.log('확인', isEnd);
+
+  const snsPostURL = (개수) => {
+    const url = `https://mandarin.api.weniv.co.kr/post/${id}/userpost/?limit=${개수}`;
+
+    return url;
+  };
+
   useEffect(() => {
-    dispatch(AxiosSnsPost(snsPostURL));
-    console.log('dddddd');
+    dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
+    console.log('첫 리덕스 성크로 데이터 불러옴');
   }, [id]);
 
-  // //////////////
-  const rootView  = useRef();
+  // const [ref, inView] = useInView();
+
+  // useEffect(() => {
+  //   console.log('인뷰 실행');
+  //   if (snsPostData.length !== 0 && inView && !isEnd) {
+  //     limitNum.current += 10;
+
+  //     console.log('snsPostURL', snsPostURL(limitNum.current));
+  //     dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
+  //   }
+  // }, [inView]);
+
   const target = useRef();
-  const options = {
-    //root: rootView.current,
-    threshold: 1,
+
+  const callback = (entries) => {
+    if(entries[0].isIntersecting && !isEnd){
+      console.log('관측되었습니다.');
+      limitNum.current += 10
+      dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
+    }
   };
-  const callback = () => {
-    console.log('관측되었습니다.');
-  };
+
+  const observer = new IntersectionObserver(callback, { threshold: 1 });
   
   useEffect(()=> {
-    const observer = new IntersectionObserver(callback, options);
-    console.log('실행수');
     if(target.current){
-      console.log('실행');
-      observer.observe(target?.current)
+      observer.observe(target.current)
     }
-  },[snsPostData]) // 바뀐 데이터를 가져오면
-  // //////////////
+  },[snsPostData]) // 바뀐 데이터를 가져오면 target.current가 존재. 따라서 target 관측시작.
+
 
   const onClickListBtn = () => {
     setImgList(true);
@@ -83,7 +103,7 @@ export const Profile = () => {
       <ProfileWrap>
         <ProfileBox />
         <MarketPreviewPost />
-        <SnsPostBox style={{backgroundColor : 'yellow'}} ref={rootView} >
+        <SnsPostBox style={{ backgroundColor: 'yellow' }}>
           <h2>sns 게시글 피드</h2>
           <SnsPostBtn>
             <ListAndAlbumBtn
@@ -100,8 +120,7 @@ export const Profile = () => {
               <ul>
                 {imgList &&
                   snsPostData.map((post, index) => {
-                    // post의 마지막 돔에게만 target 설정.
-                    // snsPostData.length -1 === index ?  target : null
+                    // post의 마지막 요소만 target 설정.
                     return snsPostData.length - 1 === index ? (
                       <SnsPostWrap style={{ backgroundColor: 'blue' }} ref={target} key={post.id}>
                         <MainSnsPost data={post} />
