@@ -19,6 +19,8 @@ export const Home = () => {
     dispatch(AxiosFollow(followimgURL));
   }, []);
 
+  console.log(followingData);
+
   const onScroll = (e) => {
     if (e.currentTarget.scrollTop >= 300) {
       setScrollTopData(true);

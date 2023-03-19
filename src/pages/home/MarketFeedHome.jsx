@@ -29,7 +29,7 @@ export const MarketFeedHome = ({ scrollTopData, followingData }) => {
       setProductData(res.flat(1).sort(postSort));
       setLoading(true);
     });
-  }, []);
+  }, [followingData]);
 
   const ProductList = async () => {
     
