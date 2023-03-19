@@ -259,9 +259,9 @@ style : 공통 스타일드 컴포넌트, reset.css, 프로젝트 컬러 상수�
 - 로딩 페이지
 - 카카오 맵 API 사용 지도 기능
 - 성능 최적화 (진행중)
-  Debouncing을 이용한 검색 최적화
-  Intersection Observer API를 사용한 프로필 페이지 무한 스크롤 구현
-  sameSite, secure 설정을 이용한 XSS, CSRF 공격 예방
+-- Debouncing을 이용한 검색 최적화
+-- Intersection Observer API를 사용한 프로필 페이지 무한 스크롤 구현
+-- sameSite, secure 설정을 이용한 XSS, CSRF 공격 예방
 - 프로젝트 배포 (netlify)
 
 #### 김현빈
