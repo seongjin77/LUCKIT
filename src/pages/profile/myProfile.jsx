@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
@@ -22,7 +22,7 @@ import { ProfilePostUploadBtn } from '../../components/button/iconBtn';
 import { AxiosSnsPost } from '../../reducers/getSnsPostSlice';
 import { ListAndAlbumBtn } from '../../components/button/button';
 import { getCookie } from '../../cookie';
-import { useInView } from 'react-intersection-observer';
+// import { useInView } from 'react-intersection-observer';
 
 export const Profile = () => {
   const [imgList, setImgList] = useState(true);
@@ -33,44 +33,48 @@ export const Profile = () => {
   const dispatch = useDispatch();
   const limitNum = useRef(10);
   const isEnd = useSelector((state) => state.snsPostSlice.endpoint);
-
   const snsPostURL = (num) => {
     const url = `https://mandarin.api.weniv.co.kr/post/${id}/userpost/?limit=${num}`;
     return url;
   };
-  useEffect(() => {
+
+  // useEffect(() => {
+  //   dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
+  // }, [id]);
+
+  useLayoutEffect(()=>{
     dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
-  }, [id]);
+  },[id])
 
-  const [ref, inView] = useInView();
+  // const [ref, inView] = useInView();
 
-
-  useEffect(() => {
-    if (inView && !isEnd) {
-      limitNum.current += 10;
-      dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
-    }
-  }, [inView]);
-
-  /// 순수 observer api만 사용
-  // const target = useRef();
-
-  // const callback = (entries) => {
-  //   if(entries[0].isIntersecting && !isEnd){
-  //     console.log('관측되었습니다.');
-  //     limitNum.current += 10
+  // useEffect(() => {
+  //   if (inView && !isEnd) {
+  //     limitNum.current += 10;
   //     dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
   //   }
-  // };
+  // }, [inView]);
 
-  // const observer = new IntersectionObserver(callback, { threshold: 1 });
+  /// 순수 observer api만 사용
+  const target = useRef();
   
-  // useEffect(()=> {
-  //   if(target.current){
-  //     observer.observe(target.current)
-  //   }
-  // },[snsPostData]) // 바뀐 데이터를 가져오면 target.current가 존재. 따라서 target 관측시작.
-///
+  const callback = (entries) => {
+    if(entries[0].isIntersecting && !isEnd){
+      console.log('관측되었습니다.');
+      limitNum.current += 10
+      dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
+    }
+  };
+
+  const observer = new IntersectionObserver(callback, { threshold: 1 });
+  
+
+  useEffect(()=> {
+    if(target.current){
+      observer.observe(target.current)
+    }
+  },[snsPostData]) // 바뀐 데이터를 가져오면 target.current가 존재. 따라서 target 관측시작.
+
 
 
   const onClickListBtn = () => {
@@ -113,18 +117,13 @@ export const Profile = () => {
               {/* 무한 스크롤 구현 부분. mainSnsPost가 각각의 게시글 버튼에 따라서 렌더링 시키는 부분이 다름. */}
               <ul>
                 {imgList &&
-                  snsPostData.map((post, index) => {
+                  snsPostData.map((post) => {
                     // post의 마지막 요소만 target 설정.
-                    return snsPostData.length - 1 === index ? (
-                      <SnsPostWrap ref={ref} key={post.id}>
-                        <MainSnsPost data={post} />
-                      </SnsPostWrap>
-                    ) : (
-                      <SnsPostWrap key={post.id}>
-                        <MainSnsPost data={post} />
-                      </SnsPostWrap>
-                    );
+                   return<SnsPostWrap key={post.id}>
+                          <MainSnsPost data={post} />
+                        </SnsPostWrap>
                   })}
+                  <li ref={target}></li>
               </ul>
               <ImgAlbumBox>
                 {imgAlbum &&

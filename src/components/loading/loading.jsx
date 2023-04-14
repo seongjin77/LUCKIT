@@ -3,6 +3,7 @@ import loadingImg from '../../assets/spinner/spinner.gif'
 import loadingImgLogo from '../../assets/splash.png';
 
 export const Loading = () => {
+  console.log('확인');
   return (
     <LoadingPageWrap>
         <LoadingSpinnerWrap>

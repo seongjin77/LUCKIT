@@ -1,5 +1,6 @@
+ /* eslint-disable */
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useCallback,  useEffect, useState } from 'react';
 import { Carousel } from '../../components/carousel/carousel';
 import { HomepageHeader, FeedPageHeader } from '../../components/header/header';
 import { HomeSection, HomeTitle, ListWrap, ListItem } from './homestyle';
@@ -8,10 +9,11 @@ import { MarketPostMoreBtn, PostUploadBtn } from '../../components/button/iconBt
 import { Loading } from '../../components/loading/loading';
 import { getCookie } from '../../cookie';
 
-export const MarketFeedHome = ({ scrollTopData, followingData }) => {
+
+  const MarketFeedHome = ({ scrollTopData, followingData }) => {
   const userToken = getCookie('Access Token');
   const [productData, setProductData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
 
   useEffect(() => {
@@ -27,11 +29,11 @@ export const MarketFeedHome = ({ scrollTopData, followingData }) => {
 
     ProductList().then((res) => {
       setProductData(res.flat(1).sort(postSort));
-      setLoading(true);
+      // setLoading(true);
     });
   }, [followingData]);
 
-  const ProductList = async () => {
+  const ProductList =useCallback(async () => {
     
     const followProductList = await followingData.map((list) => {
       return axios({
@@ -45,13 +47,12 @@ export const MarketFeedHome = ({ scrollTopData, followingData }) => {
     });
 
     return Promise.all(followProductList);
-  };
+  },[followingData]) 
 
   return (
-    <>
-      {loading ? (
         <>
-          {scrollTopData ? <FeedPageHeader /> : <HomepageHeader />}
+     
+        {scrollTopData ? <FeedPageHeader /> : <HomepageHeader />}
           <Carousel />
           <main>
             <HomeSection>
@@ -61,7 +62,7 @@ export const MarketFeedHome = ({ scrollTopData, followingData }) => {
                 {productData.length > 0 &&
                   productData.map((data) => {
                     return (
-                      <ListItem key={Math.random()}>
+                      <ListItem key={data.id}>
                         <MarketPostBox data={data} />
                         <MarketPostMoreBtn productId={data.id} />
                       </ListItem>
@@ -71,10 +72,10 @@ export const MarketFeedHome = ({ scrollTopData, followingData }) => {
             </HomeSection>
           </main>
           <PostUploadBtn pathName='/upload' />
+          
         </>
-      ) : (
-        <Loading />
-      )}
-    </>
+    
   );
 };
+
+export default MarketFeedHome

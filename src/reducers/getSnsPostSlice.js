@@ -5,7 +5,7 @@ import { getCookie } from '../cookie';
 const initialState = {
   snspost: [],
   status: 'idle',
-  endpoint : false
+  endpoint : true
 };
 
 export const AxiosSnsPost = createAsyncThunk('snspost/AxiosSnsPost', async (URL) => {
@@ -31,8 +31,8 @@ export const snsPostSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(AxiosSnsPost.fulfilled, (state, action) => {
-        //   console.log('이전길이확인',state.snspost.length);
-        //   console.log('현재길이확인',action.payload.length);
+          // console.log('이전길이확인',state.snspost.length);
+          // console.log('현재길이확인',action.payload.length);
         if(action.payload.length === state.snspost.length) state.endpoint = true
         else state.endpoint = false
         state.status = 'success';
