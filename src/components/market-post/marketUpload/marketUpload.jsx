@@ -34,7 +34,7 @@ export const MarketUpload = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    event.stopPropagation();
     try {
       await axios
         .post(
@@ -62,6 +62,7 @@ export const MarketUpload = () => {
           })();
         });
     } catch (error) {
+      alert('이미지를 넣어주세요');
       console.error(error);
     }
   };

@@ -38,10 +38,6 @@ export const Profile = () => {
     return url;
   };
 
-  // useEffect(() => {
-  //   dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
-  // }, [id]);
-
   useLayoutEffect(()=>{
     dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
   },[id])
@@ -74,8 +70,6 @@ export const Profile = () => {
       observer.observe(target.current)
     }
   },[snsPostData]) // 바뀐 데이터를 가져오면 target.current가 존재. 따라서 target 관측시작.
-
-
 
   const onClickListBtn = () => {
     setImgList(true);

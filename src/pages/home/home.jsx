@@ -33,7 +33,6 @@ export const Home = () => {
 
   return (
     <>
-      
         <Helmet>
           <title>LUCKIT - Home </title>
           <meta name='description' content='럭킷 홈페이지입니다. 럭킷메이트들에게 매칭신청을 해보세요!' />
@@ -43,9 +42,10 @@ export const Home = () => {
             <Suspense fallback={<Loading/>}>
               <MarketFeedHome scrollTopData={scrollTopData} followingData={followingData} />
             </Suspense>
-              ) : (
-                <DefaultHome />
-                )}
+              ) 
+            : 
+            <DefaultHome />
+                }
           <NavBar />
         </HomeWrap>
     </>

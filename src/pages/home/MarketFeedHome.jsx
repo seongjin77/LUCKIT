@@ -8,6 +8,7 @@ import MarketPostBox from '../../components/mainpost/marketPostBox';
 import { MarketPostMoreBtn, PostUploadBtn } from '../../components/button/iconBtn';
 import { Loading } from '../../components/loading/loading';
 import { getCookie } from '../../cookie';
+import DefaultHome from './defaultHome';
 
 
   const MarketFeedHome = ({ scrollTopData, followingData }) => {
@@ -72,7 +73,7 @@ import { getCookie } from '../../cookie';
             </HomeSection>
           </main>
           <PostUploadBtn pathName='/upload' />
-          
+          {/* <DefaultHome/> */}
         </>
     
   );

@@ -116,8 +116,9 @@ export const BackBtn = () => {
 
   return (
     <BackArrowBtn
-      onClick={() => {
+      onClick={(e) => {
         navigate(-1);
+        e.preventDefault();
       }}
     ></BackArrowBtn>
   );
