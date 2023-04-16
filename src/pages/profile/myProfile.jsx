@@ -108,7 +108,6 @@ export const Profile = () => {
           </SnsPostBtn>
           {snsPostData.length !== 0 ? (
             <>
-              {/* 무한 스크롤 구현 부분. mainSnsPost가 각각의 게시글 버튼에 따라서 렌더링 시키는 부분이 다름. */}
               <ul>
                 {imgList &&
                   snsPostData.map((post) => {

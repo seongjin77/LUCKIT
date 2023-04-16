@@ -1,6 +1,6 @@
- /* eslint-disable */
+/* eslint-disable */
 import axios from 'axios';
-import React, { Suspense, useCallback,  useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Carousel } from '../../components/carousel/carousel';
 import { HomepageHeader, FeedPageHeader } from '../../components/header/header';
 import { HomeSection, HomeTitle, ListWrap, ListItem } from './homestyle';
@@ -8,14 +8,11 @@ import MarketPostBox from '../../components/mainpost/marketPostBox';
 import { MarketPostMoreBtn, PostUploadBtn } from '../../components/button/iconBtn';
 import { Loading } from '../../components/loading/loading';
 import { getCookie } from '../../cookie';
-import DefaultHome from './defaultHome';
 
-
-  const MarketFeedHome = ({ scrollTopData, followingData }) => {
+const MarketFeedHome = ({ scrollTopData, followingData }) => {
   const userToken = getCookie('Access Token');
   const [productData, setProductData] = useState([]);
-  // const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     function postSort(a, b) {
@@ -30,13 +27,12 @@ import DefaultHome from './defaultHome';
 
     ProductList().then((res) => {
       setProductData(res.flat(1).sort(postSort));
-      // setLoading(true);
-    });
+    }).then(() => setLoading(false) )
   }, [followingData]);
 
   const ProductList =useCallback(async () => {
-    
-    const followProductList = await followingData.map((list) => {
+
+    const followProductList = followingData.map((list) => {
       return axios({
         method: 'get',
         url: `https://mandarin.api.weniv.co.kr/product/${list.accountname}/?limit=100`,
@@ -48,20 +44,23 @@ import DefaultHome from './defaultHome';
     });
 
     return Promise.all(followProductList);
-  },[followingData]) 
+  },[followingData])
 
   return (
+    <>
+      { loading ? (
+        <Loading/>
+      ) : (
         <>
-     
-        {scrollTopData ? <FeedPageHeader /> : <HomepageHeader />}
+          {scrollTopData ? <FeedPageHeader /> : <HomepageHeader />}
           <Carousel />
           <main>
             <HomeSection>
               <h2>홈 마켓글 피드 페이지</h2>
               <HomeTitle>럭킷 메이트를 기다리고 있어요!✨</HomeTitle>
               <ListWrap>
-                {productData.length > 0 &&
-                  productData.map((data) => {
+                {productData?.length > 0 &&
+                  productData?.map((data) => {
                     return (
                       <ListItem key={data.id}>
                         <MarketPostBox data={data} />
@@ -73,10 +72,11 @@ import DefaultHome from './defaultHome';
             </HomeSection>
           </main>
           <PostUploadBtn pathName='/upload' />
-          {/* <DefaultHome/> */}
         </>
-    
+      )}
+    </>
   );
+
 };
 
-export default MarketFeedHome
+export { MarketFeedHome }
