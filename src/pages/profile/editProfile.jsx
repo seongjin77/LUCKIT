@@ -15,13 +15,14 @@ import {
   EditProfileImgInput,
 } from './editprofilestyle';
 import { getCookie } from '../../cookie';
+import { BASE_URL } from '../../api/baseURL';
 
 export const EditProfile = () => {
   const fileInput = useRef();
   const navigate = useNavigate();
   const accountname = getCookie('Account Name');
   const token = getCookie('Access Token');
-  const URL = `https://mandarin.api.weniv.co.kr/profile/${accountname}`;
+  const URL = `${BASE_URL}/profile/${accountname}`;
   const dispatch = useDispatch();
   const userInfoData = useSelector((state) => state.userInfoSlice.userData);
 
@@ -54,7 +55,7 @@ export const EditProfile = () => {
   async function profileSave() {
     try {
       await axios
-        .put('https://mandarin.api.weniv.co.kr/user', userData, {
+        .put(`${BASE_URL}/user`, userData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-type': 'application/json',

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../api/baseURL';
 import * as J from './joinstyle';
 
 export const Join = () => {
@@ -56,7 +57,7 @@ export const Join = () => {
   // 다음 버튼 클릭 시
   const sendDatatoJoinProfile = async function (event) {
     event.preventDefault();
-    const res = await axios.post('https://mandarin.api.weniv.co.kr/user/emailvalid', {
+    const res = await axios.post(`${BASE_URL}/user/emailvalid`, {
       user: {
         email,
       },

@@ -4,10 +4,11 @@ import { FollowBtn } from '../button/button';
 import { FollowInfoWrap, FollowLi } from './followstyle';
 import DefaultUserImg from '../../assets/icon/basic-profile-img-.png';
 import { getCookie } from '../../cookie';
+import { BASE_URL } from '../../api/baseURL';
 
 export const Follow = ({ user }) => {
-  const unfollowURL = `https://mandarin.api.weniv.co.kr/profile/${user.accountname}/unfollow`;
-  const followURL = `https://mandarin.api.weniv.co.kr/profile/${user.accountname}/follow`;
+  const unfollowURL = `${BASE_URL}/profile/${user.accountname}/unfollow`;
+  const followURL = `${BASE_URL}/profile/${user.accountname}/follow`;
   const token = getCookie('Access Token');
   const myAccountName = getCookie('Account Name');
   const [isFollow, setIsFollow] = useState(user.isfollow);

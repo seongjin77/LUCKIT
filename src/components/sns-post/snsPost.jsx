@@ -6,6 +6,7 @@ import { SnsPostModalWrap, CloseBtn, PostDetailWrap } from './snspoststyle';
 import MainSnsPost from '../mainpost/mainSnsPost';
 import CommentBox from '../comment/commentBox';
 import { getCookie } from '../../cookie';
+import { BASE_URL } from '../../api/baseURL';
 
 export const SnsPost = () => {
   const { postId } = useParams();
@@ -13,7 +14,7 @@ export const SnsPost = () => {
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
   const token = getCookie('Access Token');
-  const URL = `https://mandarin.api.weniv.co.kr/post/${postId}`;
+  const URL = `${BASE_URL}/post/${postId}`;
 
   const postDetailaxios = async () => {
     const res = await axios.get(URL, {
@@ -28,7 +29,7 @@ export const SnsPost = () => {
 
   const getComments = () => {
     axios({
-      url: `https://mandarin.api.weniv.co.kr/post/${postId}/comments?limit=10`,
+      url: `${BASE_URL}/post/${postId}/comments?limit=10`,
       method: 'get',
       headers: {
         Authorization: `Bearer ${token}`,

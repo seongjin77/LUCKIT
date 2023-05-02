@@ -16,6 +16,7 @@ import {
 import DefaultUserImg from '../../assets/icon/basic-profile-img-.png';
 import { AxiosUserData, onChangeFollow } from '../../reducers/getUserInfoSlice';
 import { getCookie } from '../../cookie';
+import { BASE_URL } from '../../api/baseURL';
 
 export const ProfileBox = () => {
   const { isfollow, followerCount, accountname, followingCount, image, username, intro } = useSelector(
@@ -23,7 +24,7 @@ export const ProfileBox = () => {
   );
   const { id } = useParams();
   const dispatch = useDispatch();
-  const BaseURL = `https://mandarin.api.weniv.co.kr/profile/${id}`;
+  const BaseURL = `${BASE_URL}/profile/${id}`;
   const myAccountName = getCookie('Account Name');
   const userToken = getCookie('Access Token');
 
@@ -32,7 +33,7 @@ export const ProfileBox = () => {
   }, [isfollow, id, username, intro]);
 
   const unfollow = async () => {
-    await axios(`https://mandarin.api.weniv.co.kr/profile/${id}/unfollow`, {
+    await axios(`${BASE_URL}/profile/${id}/unfollow`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${userToken}`,
@@ -44,7 +45,7 @@ export const ProfileBox = () => {
   };
 
   const follow = async () => {
-    await axios(`https://mandarin.api.weniv.co.kr/profile/${id}/follow`, {
+    await axios(`${BASE_URL}/profile/${id}/follow`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${userToken}`,

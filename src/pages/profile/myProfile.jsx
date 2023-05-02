@@ -22,6 +22,7 @@ import { ProfilePostUploadBtn } from '../../components/button/iconBtn';
 import { AxiosSnsPost } from '../../reducers/getSnsPostSlice';
 import { ListAndAlbumBtn } from '../../components/button/button';
 import { getCookie } from '../../cookie';
+import { BASE_URL } from '../../api/baseURL';
 // import { useInView } from 'react-intersection-observer';
 
 export const Profile = () => {
@@ -34,7 +35,7 @@ export const Profile = () => {
   const limitNum = useRef(10);
   const isEnd = useSelector((state) => state.snsPostSlice.endpoint);
   const snsPostURL = (num) => {
-    const url = `https://mandarin.api.weniv.co.kr/post/${id}/userpost/?limit=${num}`;
+    const url = `${BASE_URL}/post/${id}/userpost/?limit=${num}`;
     return url;
   };
 

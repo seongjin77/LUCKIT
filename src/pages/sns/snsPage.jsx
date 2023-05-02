@@ -15,13 +15,14 @@ import { AxiosFollow } from '../../reducers/getFollowSlice';
 import { AxiosUserData } from '../../reducers/getUserInfoSlice';
 import { Loading } from '../../components/loading/loading';
 import { getCookie } from '../../cookie';
+import { BASE_URL } from '../../api/baseURL';
 
 export const SnsPage = () => {
   const userToken = getCookie('Access Token');
   const myAccountName = getCookie('Account Name');
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const URL = `https://mandarin.api.weniv.co.kr`;
+  const URL = `${BASE_URL}`;
   const FEED_PATH = `/post/feed`;
   const STORY_PATH = `/profile/${myAccountName}/following?limit=0`;
   const USER_PATH = `/profile/${myAccountName}`;

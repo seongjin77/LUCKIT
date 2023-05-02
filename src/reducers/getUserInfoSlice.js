@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getCookie } from '../cookie';
+import { BASE_URL } from '../api/baseURL';
 
 const initialState = {
   userData: {},
@@ -26,9 +27,9 @@ export const AxiosImgUpload = createAsyncThunk('userImg/axiosUserData', async (i
 
   formData.append('image', imgFile);
 
-  const res = await axios.post('https://mandarin.api.weniv.co.kr/image/uploadfile', formData);
+  const res = await axios.post(`${BASE_URL}/image/uploadfile`, formData);
 
-  return `https://mandarin.api.weniv.co.kr/${res.data.filename}`;
+  return `${BASE_URL}/${res.data.filename}`;
 });
 
 export const userInfoSlice = createSlice({

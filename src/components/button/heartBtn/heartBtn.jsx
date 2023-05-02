@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { ReactComponent as HeartIcon } from '../../../assets/icon/icon-heart.svg';
 import * as S from './heartbtnstyle';
+import { BASE_URL } from '../../../api/baseURL';
 
 const HeartBtn = ({ userToken, postId, hearted, heartCount }) => {
   const [isHearted, setIsHearted] = useState(hearted);
@@ -12,7 +13,7 @@ const HeartBtn = ({ userToken, postId, hearted, heartCount }) => {
     if (!isHearted) {
       try {
         await axios({
-          url: `https://mandarin.api.weniv.co.kr/post/${postId}/heart`,
+          url: `${BASE_URL}/post/${postId}/heart`,
           method: 'post',
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -31,7 +32,7 @@ const HeartBtn = ({ userToken, postId, hearted, heartCount }) => {
     if (isHearted) {
       try {
         await axios({
-          url: `https://mandarin.api.weniv.co.kr/post/${postId}/unheart`,
+          url: `${BASE_URL}/post/${postId}/unheart`,
           method: 'delete',
           headers: {
             Authorization: `Bearer ${userToken}`,

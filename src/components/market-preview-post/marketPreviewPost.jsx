@@ -7,6 +7,7 @@ import IconClova from '../../assets/icon/sns용-클로바-disabled.png';
 import { ProfilePostUploadBtn } from '../button/iconBtn';
 import DefaultUserImg from '../../assets/splash.png';
 import { getCookie } from '../../cookie';
+import { BASE_URL } from '../../api/baseURL';
 
 export const MarketPreviewPost = () => {
   const myAccountName = getCookie('Account Name');
@@ -14,7 +15,7 @@ export const MarketPreviewPost = () => {
   const product = useSelector((state) => state.productListSlice.productList);
   const { username } = useSelector((state) => state.userInfoSlice.userData);
   const dispatch = useDispatch();
-  const URLProduct = `https://mandarin.api.weniv.co.kr/product/${id}`;
+  const URLProduct = `${BASE_URL}/product/${id}`;
 
   useEffect(() => {
     dispatch(AxiosProductList(URLProduct));

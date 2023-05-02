@@ -11,6 +11,7 @@ import {
   Div,
   ModalNavLink,
 } from './modalstyle';
+import { BASE_URL } from '../../api/baseURL';
 
 export const LogoutModal = ({ onClickClose }) => {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ export const MarketPreviewModal = ({ onClickClose, productId }) => {
   const handleMarketDelete = async () => {
     try {
       await axios
-        .delete(`https://mandarin.api.weniv.co.kr/product/${productId}`, {
+        .delete(`${BASE_URL}/product/${productId}`, {
           headers: {
             Authorization: `Bearer ${userToken}`,
             'Content-type': 'application/json',
@@ -148,7 +149,7 @@ export const SnsPostModal = ({ onClickClose, accountName, myAccountName, postId,
 
   const deletePost = () => {
     axios({
-      url: `https://mandarin.api.weniv.co.kr/post/${postId}`,
+      url: `${BASE_URL}/post/${postId}`,
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -245,7 +246,7 @@ export const CommentModal = ({ onClickClose, myAccountName, accountName, postId,
   };
   const onClickCommentDelete = () => {
     axios({
-      url: `https://mandarin.api.weniv.co.kr/post/${postId}/comments/${commentId}`,
+      url: `${BASE_URL}/post/${postId}/comments/${commentId}`,
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${userToken}`,

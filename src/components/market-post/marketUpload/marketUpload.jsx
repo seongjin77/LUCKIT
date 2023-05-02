@@ -6,6 +6,7 @@ import { MarketImage } from './marketImage';
 import { MarketInput } from './marketInput';
 import { InputWrap, MarketForm } from './marketinputstyle';
 import { getCookie } from '../../../cookie';
+import { BASE_URL } from '../../../api/baseURL';
 
 export const MarketUpload = () => {
   // 데이터 전송에 필요한 유저 토큰
@@ -38,7 +39,7 @@ export const MarketUpload = () => {
     try {
       await axios
         .post(
-          'https://mandarin.api.weniv.co.kr/product',
+          `${BASE_URL}/product`,
           {
             product: {
               itemName: itemName,

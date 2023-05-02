@@ -7,6 +7,7 @@ import MarketPostBox from '../../components/mainpost/marketPostBox';
 import { NavBar } from '../../components/navbar/navBar';
 import { ListItem, ListWrap, MarketPostTitle, MarketPostWrap } from './marketpoststyle';
 import { AxiosProductList } from '../../reducers/getProductListSlice';
+import { BASE_URL } from '../../api/baseURL';
 
 export function MarketPost() {
   const { id } = useParams();
@@ -14,7 +15,7 @@ export function MarketPost() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(AxiosProductList(`https://mandarin.api.weniv.co.kr/product/${id}/?limit=20`));
+    dispatch(AxiosProductList(`${BASE_URL}/product/${id}/?limit=20`));
 
   }, []);
 

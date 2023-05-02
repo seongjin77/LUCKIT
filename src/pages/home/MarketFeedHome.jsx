@@ -8,6 +8,7 @@ import MarketPostBox from '../../components/mainpost/marketPostBox';
 import { MarketPostMoreBtn, PostUploadBtn } from '../../components/button/iconBtn';
 import { Loading } from '../../components/loading/loading';
 import { getCookie } from '../../cookie';
+import { BASE_URL } from '../../api/baseURL';
 
 const MarketFeedHome = ({ scrollTopData, followingData }) => {
   const userToken = getCookie('Access Token');
@@ -35,7 +36,7 @@ const MarketFeedHome = ({ scrollTopData, followingData }) => {
     const followProductList = followingData.map((list) => {
       return axios({
         method: 'get',
-        url: `https://mandarin.api.weniv.co.kr/product/${list.accountname}/?limit=100`,
+        url: `${BASE_URL}/product/${list.accountname}/?limit=100`,
         headers: {
           Authorization: `Bearer ${userToken}`,
           'Content-type': 'application/json',

@@ -18,6 +18,7 @@ import {
 } from './searchstyle';
 import DefaultUserImg from '../../assets/icon/basic-profile.png';
 import { getCookie } from '../../cookie';
+import { BASE_URL } from '../../api/baseURL';
 
 export const Search = () => {
   const [keyword, setKeyword] = useState('');
@@ -28,7 +29,7 @@ export const Search = () => {
     if (keyword) {
       axios({
         method: 'get',
-        url: `https://mandarin.api.weniv.co.kr/user/searchuser/?keyword=${keyword}`,
+        url: `${BASE_URL}/user/searchuser/?keyword=${keyword}`,
         headers: {
           Authorization: `Bearer ${userToken}`,
           'Content-type': 'application/json',

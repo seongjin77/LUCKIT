@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useRef } from 'react';
 import { ImgInput, ImgPreviewContainer, UploadLabel } from './marketinputstyle';
+import { BASE_URL } from '../../../api/baseURL';
 
 export const MarketImage = ({ itemImage, setItemImage }) => {
   const imgStyle = {
@@ -18,12 +19,12 @@ export const MarketImage = ({ itemImage, setItemImage }) => {
 
   async function onLoadImage(formData, loadImage) {
     try {
-      const res = await axios.post('https://mandarin.api.weniv.co.kr/image/uploadfile', formData, {
+      const res = await axios.post(`${BASE_URL}/image/uploadfile`, formData, {
         'Content-Type': 'multipart/form-data',
       });
 
       if (res.data.filename) {
-        setItemImage(`https://mandarin.api.weniv.co.kr/${res.data.filename}`);
+        setItemImage(`${BASE_URL}/${res.data.filename}`);
         preview(loadImage);
       } else {
         alert('.jpg, .gif, .png, .jpeg, .bmp, .tif, .heic 파일만 업로드 가능합니다.');

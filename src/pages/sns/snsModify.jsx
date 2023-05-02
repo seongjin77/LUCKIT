@@ -15,6 +15,7 @@ import {
 } from './snsstyle';
 import { PostUploadHeader } from '../../components/header/header';
 import { getCookie } from '../../cookie';
+import { BASE_URL } from '../../api/baseURL';
 
 export const SnsModify = () => {
   const token = getCookie('Access Token');
@@ -40,10 +41,10 @@ export const SnsModify = () => {
   /* 이미지 업로드 함수 */
   async function ImgUpload(userImg) {
     const formData = new FormData();
-    const URL = 'https://mandarin.api.weniv.co.kr/';
+    const URL = `${BASE_URL}/`;
 
     formData.append('image', userImg);
-    const res = await axios.post('https://mandarin.api.weniv.co.kr/image/uploadfile', formData);
+    const res = await axios.post(`${BASE_URL}/image/uploadfile`, formData);
 
     const Imgup = URL + res.data.filename;
 
@@ -127,7 +128,7 @@ export const SnsModify = () => {
     data.post.content = content?.length === 0 ? oripostContent : content;
 
     try {
-      const URL = 'https://mandarin.api.weniv.co.kr';
+      const URL = `${BASE_URL}`;
       const REQ_PATH = '/post/';
 
       await axios

@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ProfileNextBtn } from '../button/button';
 import { ImgUploadBtn } from '../button/iconBtn';
+import { BASE_URL } from '../../api/baseURL';
 import {
   ProfileInput,
   ProfileLabel,
@@ -19,7 +20,7 @@ const JoinProfile = () => {
   const email = location.state.email;
   const password = location.state.password;
   const [intro, setIntro] = useState('');
-  const [profileImage, setProfileImg] = useState('https://mandarin.api.weniv.co.kr/1671587008626.png');
+  const [profileImage, setProfileImg] = useState(`${BASE_URL}/1671587008626.png`);
 
   /* 프로필 사진 서버 업로드 함수 */
 
@@ -30,14 +31,14 @@ const JoinProfile = () => {
 
     formData.append('image', imageFile);
 
-    const res = await fetch('https://mandarin.api.weniv.co.kr/image/uploadfile', {
+    const res = await fetch(`${BASE_URL}/image/uploadfile`, {
       method: 'POST',
       body: formData,
     });
 
     const json = await res.json();
 
-    setProfileImg(`https://mandarin.api.weniv.co.kr/${json.filename}`);
+    setProfileImg(`${BASE_URL}/${json.filename}`);
   };
 
   /* userName 유효성 검사 */
@@ -112,7 +113,7 @@ const JoinProfile = () => {
   /* 회원가입 함수, 아이디 중복 검사 포함  */
 
   const join = async () => {
-    const res = await axios.post('https://mandarin.api.weniv.co.kr/user/accountnamevalid', {
+    const res = await axios.post(`${BASE_URL}/user/accountnamevalid`, {
       user: {
         accountname: userId,
       },
@@ -120,7 +121,7 @@ const JoinProfile = () => {
 
     if (res.data.message === '사용 가능한 계정ID 입니다.') {
       await axios
-        .post('https://mandarin.api.weniv.co.kr/user', data, {
+        .post(`${BASE_URL}/user`, data, {
           'Content-type': 'application/json',
         })
         .then((response) => navigate('/login'));

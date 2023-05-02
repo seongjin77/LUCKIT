@@ -7,6 +7,7 @@ import DefaultHome from './defaultHome';
 import { HomeWrap } from './homestyle';
 import { MarketFeedHome } from './MarketFeedHome';
 import { getCookie } from '../../cookie';
+import { BASE_URL } from '../../api/baseURL';
 
 
 export const Home = () => {
@@ -14,7 +15,7 @@ export const Home = () => {
   const accountName = getCookie('Account Name');
   const dispatch = useDispatch();
   const followingData = useSelector((state) => state.followInfoSlice.followData);
-  const followimgURL = `https://mandarin.api.weniv.co.kr/profile/${accountName}/following?limit=100`;
+  const followimgURL = `${BASE_URL}/profile/${accountName}/following?limit=100`;
 
   useEffect(() => {
     dispatch(AxiosFollow(followimgURL));

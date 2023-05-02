@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getCookie } from '../../../cookie';
+import { BASE_URL } from '../../../api/baseURL';
 import {
   CommentInpWrap,
   CommentInpform,
@@ -20,7 +21,7 @@ const CommentInput = ({ getComments, postId }) => {
   useEffect(() => {
     if (accountName) {
       axios({
-        url: `https://mandarin.api.weniv.co.kr/profile/${accountName}`,
+        url: `${BASE_URL}/profile/${accountName}`,
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -47,7 +48,7 @@ const CommentInput = ({ getComments, postId }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios({
-      url: `https://mandarin.api.weniv.co.kr/post/${postId}/comments`,
+      url: `${BASE_URL}/post/${postId}/comments`,
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,

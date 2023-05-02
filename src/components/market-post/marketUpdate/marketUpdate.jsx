@@ -6,6 +6,7 @@ import { MarketImage } from '../marketUpload/marketImage';
 import { MarketInput } from '../marketUpload/marketInput';
 import { InputWrap, MarketForm } from '../marketUpload/marketinputstyle';
 import { getCookie } from '../../../cookie';
+import { BASE_URL } from '../../../api/baseURL';
 // import Error from '../../../pages/404-error/errorPage';
 
 export const MarketUpdate = () => {
@@ -37,7 +38,7 @@ export const MarketUpdate = () => {
 
   async function getProduct() {
     try {
-      const res = await axios.get(`https://mandarin.api.weniv.co.kr/product/detail/${productId}`, {
+      const res = await axios.get(`${BASE_URL}/product/detail/${productId}`, {
         headers: {
           Authorization: `Bearer ${userToken}`,
           'Content-type': 'application/json',
@@ -58,7 +59,7 @@ export const MarketUpdate = () => {
     try {
       await axios
         .put(
-          `https://mandarin.api.weniv.co.kr/product/${productId}`,
+          `${BASE_URL}/product/${productId}`,
           {
             product: {
               itemName: itemName,

@@ -5,6 +5,7 @@ import { Follow } from '../../components/follow/follow';
 import { FollowPageWrap, FollowPageUl } from './followstyle';
 import { FollowerHeader } from '../../components/header/header';
 import { getCookie } from '../../cookie';
+import { BASE_URL } from '../../api/baseURL';
 
 export const YourFollow = () => {
   /* 상대방 프로필에서 팔로워 팔로잉 누를때 이동하는 페이지 */
@@ -16,15 +17,15 @@ export const YourFollow = () => {
 
   const location = useLocation();
   const accountname = location.state.accountname;
-  const URL = `https://mandarin.api.weniv.co.kr/profile/${accountname}/follower?limit=1000`;
-  const URL2 = `https://mandarin.api.weniv.co.kr/profile/${accountname}/following?limit=1000`;
+  const followURL = `${BASE_URL}/profile/${accountname}/follower?limit=1000`;
+  const followingURL = `${BASE_URL}/profile/${accountname}/following?limit=1000`;
   const token = getCookie('Access Token');
   const target = useLocation()?.state.text;
   const [followerList, setFollowerList] = useState([]);
   const [followingList, setFollowingList] = useState([]);
 
   async function getFollowerList() {
-    await fetch(URL, {
+    await fetch(followURL, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -36,7 +37,7 @@ export const YourFollow = () => {
   }
 
   async function getFollowingList() {
-    await fetch(URL2, {
+    await fetch(followingURL, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
