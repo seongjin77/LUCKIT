@@ -38,7 +38,7 @@ export const Search = () => {
         .then((res) => {
           setSearchUserData(res.data);
         })
-        .then((error) => {
+        .catch((error) => {
           console.log(error);
         });
     }
@@ -87,11 +87,16 @@ export const Search = () => {
           <SearchListWrap>
             {searchUserData &&
               searchUserData.map((user, index) => {
+                const userImg = user.image.includes('Ellipse') ? DefaultUserImg : user.image;
+                const modifyImg = user.image.includes('mandarin.api')? user.image.replace('mandarin.api','api.mandarin') : user.image
+                const finalModifyImg = userImg === user.image ? modifyImg : userImg
+                // const modifyImg = userImg === user.image ? userImg.includes('mandarin.api')? userImg.replace('mandarin.api','api.mandarin')
+
                 return (
                   <li key={index}>
                     <SnsProfileWrap>
                       <AuthorImgNavLink to={`/profile/${user.accountname}`}>
-                        <img src={user.image.includes('mandarin.api')? user.image.replace('mandarin.api','api.mandarin'): user.image} onError={onErrorImg} alt='프로필이미지' />
+                        <img src={finalModifyImg} onError={onErrorImg} alt='프로필이미지' />
                       </AuthorImgNavLink>
                       <AuthorNavLink to={`/profile/${user.accountname}`}>
                         <KeywordColor user={user.username} word={keyword} type='username' />

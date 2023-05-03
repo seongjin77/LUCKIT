@@ -57,18 +57,21 @@ export const Profile = () => {
   
   const callback = (entries) => {
     if(entries[0].isIntersecting && !isEnd){
-      console.log('관측되었습니다.');
       limitNum.current += 10
       dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
     }
   };
-
-  const observer = new IntersectionObserver(callback, { threshold: 1 });
   
+  const observer = new IntersectionObserver(callback, { threshold: 1 });
 
   useEffect(()=> {
     if(target.current){
       observer.observe(target.current)
+    }
+    return () => {
+      if(target.current){
+        observer.unobserve(target.current)
+      }
     }
   },[snsPostData]) // 바뀐 데이터를 가져오면 target.current가 존재. 따라서 target 관측시작.
 
@@ -116,13 +119,13 @@ export const Profile = () => {
                    return<SnsPostWrap key={post.id}>
                           <MainSnsPost data={post} />
                         </SnsPostWrap>
-                  })}
-                  <li ref={target}></li>
+                  })
+                }
+                <li ref={target}></li>
               </ul>
               <ImgAlbumBox>
                 {imgAlbum &&
                   snsPostData.map((post) => {
-                    console.log('확인합니다',post);
                     const imgArr = post.image !== '' ? post.image.split(',') : [];
                     const thumbImg = post.image.split(',')[0];
                     const modifyImg = thumbImg.includes("mandarin.api") ? thumbImg.replace("mandarin.api", "api.mandarin") : thumbImg
