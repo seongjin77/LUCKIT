@@ -67,9 +67,9 @@ export const ProfileBox = () => {
   const onErrorImg = (e) => {
     e.target.src = DefaultUserImg;
   };
-
+  
   /* 프로필 구분 */
-
+// .includes('mandarin.api')? image.replace('mandarin.api','api.mandarin'): image
   const CheckProfile = Boolean(myAccountName === accountname);
 
   return (
@@ -77,7 +77,7 @@ export const ProfileBox = () => {
       <h2>사용자 프로필 정보</h2>
       <TopInfoBox>
         <ProfileInfoBox>
-          <img src={image} onError={onErrorImg} alt='프로필사진'></img>
+          <img src={image?.includes('mandarin.api')? image.replace('mandarin.api','api.mandarin'): image} onError={onErrorImg} alt='프로필사진'></img>
           <ProfileInfoCont>
             <h3>{username}</h3>
             <p>@{accountname}</p>

@@ -91,7 +91,7 @@ export const Search = () => {
                   <li key={index}>
                     <SnsProfileWrap>
                       <AuthorImgNavLink to={`/profile/${user.accountname}`}>
-                        <img src={user.image} onError={onErrorImg} alt='프로필이미지' />
+                        <img src={user.image.includes('mandarin.api')? user.image.replace('mandarin.api','api.mandarin'): user.image} onError={onErrorImg} alt='프로필이미지' />
                       </AuthorImgNavLink>
                       <AuthorNavLink to={`/profile/${user.accountname}`}>
                         <KeywordColor user={user.username} word={keyword} type='username' />

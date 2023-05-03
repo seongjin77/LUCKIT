@@ -106,11 +106,11 @@ export const SnsPage = () => {
               </NavLink>
               {followList.map((story) => {
                 const storyImg = story.image.includes('Ellipse') ? DefaultUserImg : story.image;
-
+                
                 return (
                   <NavLink key={story._id} to={`/profile/${story.accountname}`}>
                     <li>
-                      <SnsStoryImg src={storyImg} onError={onErrorImg} />
+                    <SnsStoryImg src={storyImg.includes("mandarin.api") ? storyImg.replace("mandarin.api", "api.mandarin") : storyImg} onError={onErrorImg} />
                     </li>
                   </NavLink>
                 );

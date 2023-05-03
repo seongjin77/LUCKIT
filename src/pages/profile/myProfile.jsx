@@ -122,8 +122,10 @@ export const Profile = () => {
               <ImgAlbumBox>
                 {imgAlbum &&
                   snsPostData.map((post) => {
+                    console.log('확인합니다',post);
                     const imgArr = post.image !== '' ? post.image.split(',') : [];
                     const thumbImg = post.image.split(',')[0];
+                    const modifyImg = thumbImg.includes("mandarin.api") ? thumbImg.replace("mandarin.api", "api.mandarin") : thumbImg
 
                     return (
                       <>
@@ -132,10 +134,10 @@ export const Profile = () => {
                             <NavLinkStyle to={`/snspost/${post.id}`}>
                               {imgArr.length > 1 ? (
                                 <MultiImgLayers>
-                                  <img src={thumbImg} onError={onError} alt='게시글 이미지' />
+                                  <img src={modifyImg} onError={onError} alt='게시글 이미지' />
                                 </MultiImgLayers>
                               ) : (
-                                <img src={thumbImg} onError={onError} alt='게시글 이미지' />
+                                <img src={modifyImg} onError={onError} alt='게시글 이미지' />
                               )}
                             </NavLinkStyle>
                           </ImgAlbumList>

@@ -38,7 +38,7 @@ export const MarketPreviewPost = () => {
       <MarketPostWrap>
         {product.length === 0 && (
           <div className='noPostBox'>
-            <img src={IconClova} alt='' />
+            <img src={IconClova} alt='기본이미지' />
             <p>게시물이 없습니다.</p>
           </div>
         )}
@@ -48,7 +48,7 @@ export const MarketPreviewPost = () => {
               <MarketPostList key={post.id}>
                 <NavLink to={`/marketpost/${id}`}>
                   <p>{post.itemName}</p>
-                  <img src={post.itemImage} onError={onErrorImg} alt='상품이미지' />
+                  <img src={post.itemImage.includes('mandarin.api')? post.itemImage.replace('mandarin.api','api.mandarin'): post.itemImage } onError={onErrorImg} alt='상품이미지' />
                 </NavLink>
               </MarketPostList>
             );
