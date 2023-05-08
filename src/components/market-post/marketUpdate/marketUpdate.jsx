@@ -18,7 +18,7 @@ export const MarketUpdate = () => {
   const [itemImage, setItemImage] = useState('');
   // const [view, setView] = useState('pending');
 
-  const userToken = getCookie('Access Token');
+  const userToken = getCookie('AccessToken');
 
   const navigate = useNavigate();
 

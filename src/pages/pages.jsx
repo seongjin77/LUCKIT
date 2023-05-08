@@ -31,7 +31,7 @@ import { getCookie } from '../cookie/index.js';
 
 const Pages = () => {
   const [loading, setLoading] = useState(false);
-  const token = !!getCookie('Access Token');
+  const token = !!getCookie('AccessToken');
 
   useEffect(() => {
     if (window.location.pathname === '/' && !token) {

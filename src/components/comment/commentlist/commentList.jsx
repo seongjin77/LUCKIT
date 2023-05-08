@@ -41,7 +41,7 @@ function CommentList({ comments, postId }) {
             return (
               <CommentListLi key={data.id}>
                 <NavLink to={`/profile/${data.author.accountname}`}>
-                <ProfileImg src={data.author.image} />
+                <ProfileImg src={data.author.image.includes('mandarin.api') ? data.author.image.replace('mandarin.api', 'api.mandarin') : data.author.image} />
                 </NavLink>
                 <InformationBox>
                 <NavLink to={`/profile/${data.author.accountname}`}>

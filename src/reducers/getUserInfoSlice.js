@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const AxiosUserData = createAsyncThunk('userdata/axiosUserData', async (URL) => {
-  const token = getCookie('Access Token');
+  const token = getCookie('AccessToken');
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

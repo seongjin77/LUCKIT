@@ -19,7 +19,7 @@ export const YourFollow = () => {
   const accountname = location.state.accountname;
   const followURL = `${BASE_URL}/profile/${accountname}/follower?limit=1000`;
   const followingURL = `${BASE_URL}/profile/${accountname}/following?limit=1000`;
-  const token = getCookie('Access Token');
+  const token = getCookie('AccessToken');
   const target = useLocation()?.state.text;
   const [followerList, setFollowerList] = useState([]);
   const [followingList, setFollowingList] = useState([]);

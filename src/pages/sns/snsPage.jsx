@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -18,8 +18,8 @@ import { getCookie } from '../../cookie';
 import { BASE_URL } from '../../api/baseURL';
 
 export const SnsPage = () => {
-  const userToken = getCookie('Access Token');
-  const myAccountName = getCookie('Account Name');
+  const userToken = getCookie('AccessToken');
+  const myAccountName = getCookie('AccountName');
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const URL = `${BASE_URL}`;
@@ -106,11 +106,18 @@ export const SnsPage = () => {
               </NavLink>
               {followList.map((story) => {
                 const storyImg = story.image.includes('Ellipse') ? DefaultUserImg : story.image;
-                
+
                 return (
                   <NavLink key={story._id} to={`/profile/${story.accountname}`}>
                     <li>
-                    <SnsStoryImg src={storyImg.includes("mandarin.api") ? storyImg.replace("mandarin.api", "api.mandarin") : storyImg} onError={onErrorImg} />
+                      <SnsStoryImg
+                        src={
+                          storyImg.includes('mandarin.api')
+                            ? storyImg.replace('mandarin.api', 'api.mandarin')
+                            : storyImg
+                        }
+                        onError={onErrorImg}
+                      />
                     </li>
                   </NavLink>
                 );

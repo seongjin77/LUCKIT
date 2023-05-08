@@ -18,7 +18,7 @@ import { getCookie } from '../../cookie';
 import { BASE_URL } from '../../api/baseURL';
 
 export const SnsModify = () => {
-  const token = getCookie('Access Token');
+  const token = getCookie('AccessToken');
   const [content, setContent] = useState('');
   const fileInput = useRef(null);
   const [showImgs, setShowImg] = useState([]);
@@ -34,7 +34,7 @@ export const SnsModify = () => {
   const data = {
     post: {
       content: '',
-      image: showImgs
+      image: showImgs,
     },
   };
 
@@ -52,7 +52,7 @@ export const SnsModify = () => {
   }
 
   function sliceImg(oripostImgs) {
-    const arr = oripostImgs?.split(',').filter(v => v !== '');
+    const arr = oripostImgs?.split(',').filter((v) => v !== '');
 
     return arr;
   }

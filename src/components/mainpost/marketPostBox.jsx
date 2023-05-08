@@ -9,7 +9,7 @@ import { getCookie } from '../../cookie';
 
 export default function MarketPostBox({ data, accountname }) {
   const [confirmedValue, setConfirmedValue] = useState(JSON.parse(localStorage.getItem('stored')));
-  const myAccountName = getCookie('Account Name');
+  const myAccountName = getCookie('AccountName');
 
   const onClickApplyBtn = (e) => {
     const targetId = e.currentTarget.id;
@@ -68,7 +68,14 @@ export default function MarketPostBox({ data, accountname }) {
 
   return (
     <CardWrap>
-      <CardImg src={data.itemImage?.includes("mandarin.api") ? data.itemImage.replace("mandarin.api", "api.mandarin") : data.itemImage} onError={onErrorImg} />
+      <CardImg
+        src={
+          data.itemImage?.includes('mandarin.api')
+            ? data.itemImage.replace('mandarin.api', 'api.mandarin')
+            : data.itemImage
+        }
+        onError={onErrorImg}
+      />
       <CardCont>
         <CardTitle>{data.itemName}</CardTitle>
         <CardTxt>{data.link}</CardTxt>

@@ -9,8 +9,8 @@ import { BASE_URL } from '../../api/baseURL';
 export const Follow = ({ user }) => {
   const unfollowURL = `${BASE_URL}/profile/${user.accountname}/unfollow`;
   const followURL = `${BASE_URL}/profile/${user.accountname}/follow`;
-  const token = getCookie('Access Token');
-  const myAccountName = getCookie('Account Name');
+  const token = getCookie('AccessToken');
+  const myAccountName = getCookie('AccountName');
   const [isFollow, setIsFollow] = useState(user.isfollow);
   const navigate = useNavigate();
 
@@ -54,7 +54,11 @@ export const Follow = ({ user }) => {
   return (
     <FollowLi>
       <FollowInfoWrap onClick={goYourProfile}>
-        <img onError={onErrorImg} src={user.image.includes("mandarin.api") ? user.image.replace("mandarin.api", "api.mandarin") : user.image} alt='프로필사진' />
+        <img
+          onError={onErrorImg}
+          src={user.image.includes('mandarin.api') ? user.image.replace('mandarin.api', 'api.mandarin') : user.image}
+          alt='프로필사진'
+        />
         <div>
           <p className='userAccount'>{user.username}</p>
           <p className='userIntro'>{user.accountname}</p>

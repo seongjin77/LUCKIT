@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const AxiosFollow = createAsyncThunk('follow/axiosfollow', async (URL) => {
-  const token = getCookie('Access Token');
+  const token = getCookie('AccessToken');
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

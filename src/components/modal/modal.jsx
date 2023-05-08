@@ -26,9 +26,9 @@ export const LogoutModal = ({ onClickClose }) => {
   };
 
   const onClickLogout = () => {
-    removeCookie('Account Name');
-    removeCookie('Access Token');
-    navigate('/login')
+    removeCookie('AccountName', {path:'/login'});
+    removeCookie('AccessToken',{path:'/login'});
+    navigate('/login');
   };
 
   return (
@@ -44,9 +44,7 @@ export const LogoutModal = ({ onClickClose }) => {
               <strong>로그아웃 하시겠습니까?</strong>
               <ModalBtnWrap>
                 <button onClick={onClickCancel}>취소</button>
-                <ModalNavLink onClick={onClickLogout}>
-                  로그아웃
-                </ModalNavLink>
+                <ModalNavLink onClick={onClickLogout}>로그아웃</ModalNavLink>
               </ModalBtnWrap>
             </ModalWrap>
           </Div>
@@ -58,8 +56,8 @@ export const LogoutModal = ({ onClickClose }) => {
 
 export const MarketPreviewModal = ({ onClickClose, productId }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const userToken = getCookie('Access Token');
-  const myAccountName = getCookie('Account Name');
+  const userToken = getCookie('AccessToken');
+  const myAccountName = getCookie('AccountName');
   const { id } = useParams();
 
   const onClickDeleteModal = () => {
@@ -136,7 +134,7 @@ export const MarketPreviewModal = ({ onClickClose, productId }) => {
 /* Sns게시글 모달 */
 export const SnsPostModal = ({ onClickClose, accountName, myAccountName, postId, postContent, postImg }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const token = getCookie('Access Token');
+  const token = getCookie('AccessToken');
   const navigate = useNavigate();
 
   const onClickDeleteModal = () => {
@@ -180,7 +178,7 @@ export const SnsPostModal = ({ onClickClose, accountName, myAccountName, postId,
                   postId: postId,
                   postContent: postContent,
                   postImg: postImg,
-                  accountName: accountName
+                  accountName: accountName,
                 }}
               >
                 수정
@@ -234,7 +232,7 @@ export const ChatRoomModal = ({ onClickClose }) => {
 };
 
 export const CommentModal = ({ onClickClose, myAccountName, accountName, postId, commentId }) => {
-  const userToken = getCookie('Access Token');
+  const userToken = getCookie('AccessToken');
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const onClickDeleteModal = () => {

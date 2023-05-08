@@ -23,7 +23,7 @@ import { BASE_URL } from '../../api/baseURL';
 export const Search = () => {
   const [keyword, setKeyword] = useState('');
   const [searchUserData, setSearchUserData] = useState([]);
-  const userToken = getCookie('Access Token');
+  const userToken = getCookie('AccessToken');
 
   const searchKeyword = () => {
     if (keyword) {
@@ -88,8 +88,10 @@ export const Search = () => {
             {searchUserData &&
               searchUserData.map((user, index) => {
                 const userImg = user.image.includes('Ellipse') ? DefaultUserImg : user.image;
-                const modifyImg = user.image.includes('mandarin.api')? user.image.replace('mandarin.api','api.mandarin') : user.image
-                const finalModifyImg = userImg === user.image ? modifyImg : userImg
+                const modifyImg = user.image.includes('mandarin.api')
+                  ? user.image.replace('mandarin.api', 'api.mandarin')
+                  : user.image;
+                const finalModifyImg = userImg === user.image ? modifyImg : userImg;
                 // const modifyImg = userImg === user.image ? userImg.includes('mandarin.api')? userImg.replace('mandarin.api','api.mandarin')
 
                 return (

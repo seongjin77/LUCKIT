@@ -51,14 +51,14 @@ export const Login = () => {
               .then((data) => {
                 if (data.data.isValid) {
                   setMessage('');
-                  // localStorage.setItem('Access Token', res.data.user.token);
-                  // localStorage.setItem('Account Name', res.data.user.accountname);
-                  setCookie('Access Token', res.data.user.token, {
+                  // localStorage.setItem('AccessToken', res.data.user.token);
+                  // localStorage.setItem('AccountName', res.data.user.accountname);
+                  setCookie('AccessToken', res.data.user.token, {
                     path: '/',
                     secure: true,
                     sameSite: 'strict',
                   });
-                  setCookie('Account Name', res.data.user.accountname, {
+                  setCookie('AccountName', res.data.user.accountname, {
                     path: '/',
                     secure: true,
                     sameSite: 'strict',

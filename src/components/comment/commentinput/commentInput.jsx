@@ -15,8 +15,8 @@ const CommentInput = ({ getComments, postId }) => {
   const [comment, setComment] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [authorImg, setAuthorImg] = useState('');
-  const token = getCookie('Access Token');
-  const accountName = getCookie('Account Name');
+  const token = getCookie('AccessToken');
+  const accountName = getCookie('AccountName');
 
   useEffect(() => {
     if (accountName) {

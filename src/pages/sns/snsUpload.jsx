@@ -18,7 +18,7 @@ import { getCookie } from '../../cookie';
 import { BASE_URL } from '../../api/baseURL';
 
 export const SnsUpload = () => {
-  const token = getCookie('Access Token');
+  const token = getCookie('AccessToken');
   const [content, setContent] = useState('');
   const fileInput = useRef(null);
   const [showImg, setShowImg] = useState([]);
@@ -118,7 +118,7 @@ export const SnsUpload = () => {
             'Content-type': 'application/json',
           },
         })
-        .then(  navigate(-1)  );
+        .then(navigate(-1));
     } catch (error) {
       console.log(error);
     }

@@ -10,10 +10,10 @@ import { BASE_URL } from '../../api/baseURL';
 export const MyFollow = () => {
   /* 내 프로필 페이지의 팔로잉 팔로워 누르면 이동하는 페이지 */
 
-  const accountname = getCookie('Account Name');
+  const accountname = getCookie('AccountName');
   const followerURL = `${BASE_URL}/profile/${accountname}/follower?limit=1000`;
   const followingURL = `${BASE_URL}/profile/${accountname}/following?limit=1000`;
-  const token = getCookie('Access Token');
+  const token = getCookie('AccessToken');
   const target = useLocation()?.state.text;
   const [followerList, setFollowerList] = useState([]);
   const [followingList, setFollowingList] = useState([]);

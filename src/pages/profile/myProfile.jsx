@@ -28,7 +28,7 @@ import { BASE_URL } from '../../api/baseURL';
 export const Profile = () => {
   const [imgList, setImgList] = useState(true);
   const [imgAlbum, setImgAlbum] = useState(false);
-  const myAccountName = getCookie('Account Name');
+  const myAccountName = getCookie('AccountName');
   const { id } = useParams();
   const snsPostData = useSelector((state) => state.snsPostSlice.snspost);
   const dispatch = useDispatch();
@@ -39,9 +39,9 @@ export const Profile = () => {
     return url;
   };
 
-  useLayoutEffect(()=>{
+  useLayoutEffect(() => {
     dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
-  },[id])
+  }, [id]);
 
   // const [ref, inView] = useInView();
 
@@ -54,26 +54,26 @@ export const Profile = () => {
 
   /// 순수 observer api만 사용
   const target = useRef();
-  
+
   const callback = (entries) => {
-    if(entries[0].isIntersecting && !isEnd){
-      limitNum.current += 10
+    if (entries[0].isIntersecting && !isEnd) {
+      limitNum.current += 10;
       dispatch(AxiosSnsPost(snsPostURL(limitNum.current)));
     }
   };
-  
+
   const observer = new IntersectionObserver(callback, { threshold: 1 });
 
-  useEffect(()=> {
-    if(target.current){
-      observer.observe(target.current)
+  useEffect(() => {
+    if (target.current) {
+      observer.observe(target.current);
     }
     return () => {
-      if(target.current){
-        observer.unobserve(target.current)
+      if (target.current) {
+        observer.unobserve(target.current);
       }
-    }
-  },[snsPostData]) // 바뀐 데이터를 가져오면 target.current가 존재. 따라서 target 관측시작.
+    };
+  }, [snsPostData]); // 바뀐 데이터를 가져오면 target.current가 존재. 따라서 target 관측시작.
 
   const onClickListBtn = () => {
     setImgList(true);
@@ -116,11 +116,12 @@ export const Profile = () => {
                 {imgList &&
                   snsPostData.map((post) => {
                     // post의 마지막 요소만 target 설정.
-                   return<SnsPostWrap key={post.id}>
-                          <MainSnsPost data={post} />
-                        </SnsPostWrap>
-                  })
-                }
+                    return (
+                      <SnsPostWrap key={post.id}>
+                        <MainSnsPost data={post} />
+                      </SnsPostWrap>
+                    );
+                  })}
                 <li ref={target}></li>
               </ul>
               <ImgAlbumBox>
@@ -128,7 +129,9 @@ export const Profile = () => {
                   snsPostData.map((post) => {
                     const imgArr = post.image !== '' ? post.image.split(',') : [];
                     const thumbImg = post.image.split(',')[0];
-                    const modifyImg = thumbImg.includes("mandarin.api") ? thumbImg.replace("mandarin.api", "api.mandarin") : thumbImg
+                    const modifyImg = thumbImg.includes('mandarin.api')
+                      ? thumbImg.replace('mandarin.api', 'api.mandarin')
+                      : thumbImg;
 
                     return (
                       <>

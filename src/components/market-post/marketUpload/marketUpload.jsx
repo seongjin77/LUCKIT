@@ -20,7 +20,7 @@ export const MarketUpload = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setUserToken(getCookie('Access Token'));
+    setUserToken(getCookie('AccessToken'));
   }, []);
 
   useEffect(() => {

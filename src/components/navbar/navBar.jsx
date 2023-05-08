@@ -13,7 +13,7 @@ import locatorFill from '../../assets/icon/locator.png';
 import { getCookie } from '../../cookie';
 
 export const NavBar = () => {
-  const myAccountName = getCookie('Account Name');
+  const myAccountName = getCookie('AccountName');
 
   return (
     <NavWrap>

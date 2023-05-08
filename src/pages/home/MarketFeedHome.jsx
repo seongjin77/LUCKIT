@@ -11,7 +11,7 @@ import { getCookie } from '../../cookie';
 import { BASE_URL } from '../../api/baseURL';
 
 const MarketFeedHome = ({ scrollTopData, followingData }) => {
-  const userToken = getCookie('Access Token');
+  const userToken = getCookie('AccessToken');
   const [productData, setProductData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,13 +26,14 @@ const MarketFeedHome = ({ scrollTopData, followingData }) => {
       return 0;
     }
 
-    ProductList().then((res) => {
-      setProductData(res.flat(1).sort(postSort));
-    }).then(() => setLoading(false) )
+    ProductList()
+      .then((res) => {
+        setProductData(res.flat(1).sort(postSort));
+      })
+      .then(() => setLoading(false));
   }, [followingData]);
 
-  const ProductList =useCallback(async () => {
-
+  const ProductList = useCallback(async () => {
     const followProductList = followingData.map((list) => {
       return axios({
         method: 'get',
@@ -45,12 +46,12 @@ const MarketFeedHome = ({ scrollTopData, followingData }) => {
     });
 
     return Promise.all(followProductList);
-  },[followingData])
+  }, [followingData]);
 
   return (
     <>
-      { loading ? (
-        <Loading/>
+      {loading ? (
+        <Loading />
       ) : (
         <>
           {scrollTopData ? <FeedPageHeader /> : <HomepageHeader />}
@@ -77,7 +78,6 @@ const MarketFeedHome = ({ scrollTopData, followingData }) => {
       )}
     </>
   );
-
 };
 
-export { MarketFeedHome }
+export { MarketFeedHome };

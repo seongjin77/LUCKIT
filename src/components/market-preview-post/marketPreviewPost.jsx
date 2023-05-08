@@ -10,7 +10,7 @@ import { getCookie } from '../../cookie';
 import { BASE_URL } from '../../api/baseURL';
 
 export const MarketPreviewPost = () => {
-  const myAccountName = getCookie('Account Name');
+  const myAccountName = getCookie('AccountName');
   const { id } = useParams();
   const product = useSelector((state) => state.productListSlice.productList);
   const { username } = useSelector((state) => state.userInfoSlice.userData);
@@ -48,7 +48,15 @@ export const MarketPreviewPost = () => {
               <MarketPostList key={post.id}>
                 <NavLink to={`/marketpost/${id}`}>
                   <p>{post.itemName}</p>
-                  <img src={post.itemImage.includes('mandarin.api')? post.itemImage.replace('mandarin.api','api.mandarin'): post.itemImage } onError={onErrorImg} alt='상품이미지' />
+                  <img
+                    src={
+                      post.itemImage.includes('mandarin.api')
+                        ? post.itemImage.replace('mandarin.api', 'api.mandarin')
+                        : post.itemImage
+                    }
+                    onError={onErrorImg}
+                    alt='상품이미지'
+                  />
                 </NavLink>
               </MarketPostList>
             );

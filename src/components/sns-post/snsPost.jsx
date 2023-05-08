@@ -13,7 +13,7 @@ export const SnsPost = () => {
   const [postDetail, setPostDetail] = useState(null);
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
-  const token = getCookie('Access Token');
+  const token = getCookie('AccessToken');
   const URL = `${BASE_URL}/post/${postId}`;
 
   const postDetailaxios = async () => {

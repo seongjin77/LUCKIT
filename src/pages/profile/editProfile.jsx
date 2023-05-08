@@ -20,8 +20,8 @@ import { BASE_URL } from '../../api/baseURL';
 export const EditProfile = () => {
   const fileInput = useRef();
   const navigate = useNavigate();
-  const accountname = getCookie('Account Name');
-  const token = getCookie('Access Token');
+  const accountname = getCookie('AccountName');
+  const token = getCookie('AccessToken');
   const URL = `${BASE_URL}/profile/${accountname}`;
   const dispatch = useDispatch();
   const userInfoData = useSelector((state) => state.userInfoSlice.userData);
