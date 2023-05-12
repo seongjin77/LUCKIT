@@ -8,7 +8,7 @@
 
 📄 URL : https://luckitclover.netlify.app/
 
-📄 서비스 이용을 위한 테스트 계정
+### 📄 서비스 이용을 위한 테스트 계정
 
 ```
 💌 ID: luckit@luckit.com
