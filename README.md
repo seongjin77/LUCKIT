@@ -6,7 +6,7 @@
 
 📄 진행 기간 : 2022. 12. 09 ~ 2023. 01. 04
 
-📄 URL : https://luckitclover.netlify.app/
+📄 URL : https://luckitclover.netlify.app/ (서버 중단)
 
 ### 📄 서비스 이용을 위한 테스트 계정
 
